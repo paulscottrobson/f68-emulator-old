@@ -15,6 +15,10 @@
 void HWReset(void);
 void HWSync(void);
 
+int GAVIN_Read(int offset,BYTE8 *memory);
+int GAVIN_Write(int offset,BYTE8 *memory,int value);
+void GAVIN_FlagInterrupt(int offset,int bitMask);
+
 #ifdef LINUX
 #define FILESEP '/'
 #else

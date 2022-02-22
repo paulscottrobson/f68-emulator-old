@@ -246,7 +246,6 @@ void initialize() {
     } else {
         log(LOG_INFO, "PATA driver installed.");
     }
-
     if (res = sdc_install()) {
         log_num(LOG_ERROR, "FAILED: SDC driver installation", res);
     } else {

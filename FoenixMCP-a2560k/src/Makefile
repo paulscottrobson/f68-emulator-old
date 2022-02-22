@@ -107,7 +107,7 @@ foenixmcp.s68: $(c_obj) $(cpu) dev fatfs snd cli
 	$(CC) $(CFLAGS) $(DEFINES) -o foenixmcp.s68 $(c_obj) $(cpu_c_obj) $(dev_c_obj) $(fat_c_obj) $(snd_c_obj) $(cli_c_obj)
 
 %.o: %.c $(DEPS)
-	$(CC) -S -c -o $@ $< $(CFLAGS) $(DEFINES)
+	$(CC) -S -c -o $@ $< $(CFLAGS) $(DEFINES) 
 
 .PHONEY: clean
 

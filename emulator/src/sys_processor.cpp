@@ -64,12 +64,13 @@ BYTE8 CPUExecuteInstruction(void) {
 	#ifdef INCLUDE_DEBUGGING_SUPPORT
 	if (PC == 0xFFFFFFFF) CPUExit();
 	#endif
-	cycles -= m68k_execute(1);
-	//m68_set_irq(0);
+	cycles -= m68k_execute(-99);
+	m68k_set_irq(0);
 	if (cycles >= 0 ) return 0;														// Not completed a frame.
 	cycles = cycles + CYCLES_PER_FRAME;												// Adjust this frame rate, up to x16 on HS
 	HWSync();																		// Update any hardware
-	//m68k_set_irq(4);
+	m68k_set_irq(5); 																// Interrupt level 5 (Vicky A)
+	GAVIN_FlagInterrupt(1,1); 								 						// Bit 0 of ICR 1 (Vicky A)
 	return FRAME_RATE;																// Return frame rate.
 }
 
