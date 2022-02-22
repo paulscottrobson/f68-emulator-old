@@ -44,7 +44,7 @@ void GFXOpenWindow(const char *title,int width,int height,int colour) {
 	}
 
 	mainWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, 					// Try to create a window
-							SDL_WINDOWPOS_UNDEFINED, width+32,height+32, SDL_WINDOW_SHOWN );
+							SDL_WINDOWPOS_UNDEFINED, width+64,height+64, SDL_WINDOW_SHOWN );
 	if (mainWindow == NULL) {
 		exit(printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() ));
 	}

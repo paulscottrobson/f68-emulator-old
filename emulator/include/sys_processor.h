@@ -12,7 +12,7 @@
 #ifndef _PROCESSOR_H
 #define _PROCESSOR_H
 
-#define CYCLE_RATE 		(3540*1000)													// Cycles per second (3.54Mhz)
+#define CYCLE_RATE 		(25*1000*1000)												// Cycles per second (3.54Mhz)
 
 typedef unsigned short WORD16;														// 8 and 16 bit types.
 typedef unsigned char  BYTE8;
@@ -31,7 +31,7 @@ void CPUWriteMemory(LONG32 address,BYTE8 data);
 #ifdef INCLUDE_DEBUGGING_SUPPORT													// Only required for debugging
 
 BYTE8 CPUExecute(LONG32 breakPoint1,LONG32 breakPoint2);
-WORD16 CPUGetStepOverBreakpoint(void);
+LONG32 CPUGetStepOverBreakpoint(void);
 void CPUEndRun(void);
 void CPULoadBinary(char *fileName);
 void CPUExit(void);

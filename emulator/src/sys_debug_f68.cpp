@@ -63,7 +63,7 @@ void DBGXRender(int *address,int showDisplay) {
 	DN(s->pc,8);DN(s->sr,4);
 	for (n = 0;n < 5;n++) {
 		int on = (s->sr & (0x10 >> n));
-		GFXCharacter(GRID(xc+n,yc),on ? sr[n] : '.',GRIDSIZE,on ? DBGC_DATA : DBGC_ADDRESS,-1);
+		GFXCharacter(GRID(xc+n,yc),on ? sr[n] : '.',GRIDSIZE,on ? DBGC_HIGHLIGHT : DBGC_ADDRESS,-1);
 	}
 	yc++;DN(address[3],8);
 	xc = IR;yc = 8;
@@ -87,6 +87,8 @@ void DBGXRender(int *address,int showDisplay) {
 		GFXNumber(GRID(0,row),p,16,8,GRIDSIZE,isPC ? DBGC_HIGHLIGHT:DBGC_ADDRESS,	// Display address / highlight / breakpoint
 																	isBrk ? 0xF00 : -1);
 		int c = m68k_disassemble(buffer, p, PROCESSOR_TYPE);
+		char *ps = strchr(buffer,';');
+		if (ps != NULL) *ps = '\0';
 		GFXString(GRID(9,row),buffer,GRIDSIZE,isPC ? DBGC_HIGHLIGHT:DBGC_DATA,-1);	// Print the mnemonic
 		p += c;
 	}

@@ -65,9 +65,11 @@ BYTE8 CPUExecuteInstruction(void) {
 	if (PC == 0xFFFFFFFF) CPUExit();
 	#endif
 	cycles -= m68k_execute(1);
+	//m68_set_irq(0);
 	if (cycles >= 0 ) return 0;														// Not completed a frame.
 	cycles = cycles + CYCLES_PER_FRAME;												// Adjust this frame rate, up to x16 on HS
 	HWSync();																		// Update any hardware
+	//m68k_set_irq(4);
 	return FRAME_RATE;																// Return frame rate.
 }
 
@@ -102,10 +104,14 @@ BYTE8 CPUExecute(LONG32 breakPoint1,LONG32 breakPoint2) {
 //									Return address of breakpoint for step-over, or 0 if N/A
 // *******************************************************************************************************************************
 
-WORD16 CPUGetStepOverBreakpoint(void) {
-	BYTE8 op = CPUReadMemory(PC); 	
-	if (op == 0xCD || (op & 0xC7) == 0xC4) return PC+3; 							// CALL/CALL xx
-	if ((op & 0xC7) == 0xC7) return PC+1;											// RST
+LONG32 CPUGetStepOverBreakpoint(void) {
+	char buffer[64];
+	int pc = CPUGetStatus()->pc; 
+	int c = m68k_disassemble(buffer, pc, PROCESSOR_TYPE);
+	buffer[3] = '\0';
+	if (strcmp(buffer,"bsr") == 0 || strcmp(buffer,"jsr") == 0 || strcmp(buffer,"trap") == 0) {
+		return pc+c;
+	}
 	return 0;																		// Do a normal single step
 }
 

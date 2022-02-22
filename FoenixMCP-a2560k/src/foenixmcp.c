@@ -334,6 +334,7 @@ int main(int argc, char * argv[]) {
     short result;
     short i;
 
+
     initialize();
 
     sprintf(welcome, "    %s%s\n   %s %s\n  %s  %s\n %s   %s\n%s    %s\n\n", color_bars, title_1, color_bars, title_2, color_bars, title_3, color_bars, title_4, color_bars, title_5);
