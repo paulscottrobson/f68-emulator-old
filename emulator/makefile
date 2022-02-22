@@ -18,15 +18,15 @@ all: emulator
 #	.$(S)$(APPNAME) 
 
 run: emulator 
-	.$(S)$(APPNAME) program.bin go
+	.$(S)$(APPNAME) boot.rom go
 
 debug: emulator 
-	.$(S)$(APPNAME) program.bin
+	.$(S)$(APPNAME) boot.rom
 	
 emulator: prebuild $(APPNAME)
 
 prebuild:
-	#make -C ..$(S)Musashi
+	make -C ..$(S)Musashi
 	$(CCOPY) ..$(S)Musashi$(S)*.h cpu
 	$(CCOPY) ..$(S)Musashi$(S)*.o cpu
 	$(CCOPY) ..$(S)Musashi$(S)softfloat$(S)*.o cpu

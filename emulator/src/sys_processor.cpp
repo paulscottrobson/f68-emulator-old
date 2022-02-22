@@ -14,6 +14,7 @@
 #include "sys_debug_system.h"
 #include "hardware.h"
 #include "m68k.h"
+#include <setup.h>
 
 // *******************************************************************************************************************************
 //														   Timing
@@ -34,8 +35,9 @@ static int cycles;																	// Cycle Count.
 
 void CPUReset(void) {
 	m68k_init();
-	m68k_set_cpu_type(M68K_CPU_TYPE_68040); 										// Select CPU type.
+	m68k_set_cpu_type(PROCESSOR_TYPE);		 										// Select CPU type.
 	m68k_pulse_reset();																// Reset
+	m68k_set_reg(M68K_REG_PC,m68k_read_memory_32(0xFFC00004));
 	HWReset();																		// Reset Hardware
 	cycles = CYCLES_PER_FRAME;
 }
@@ -87,13 +89,12 @@ void CPUWriteMemory(LONG32 address,BYTE8 data) {
 //		Execute chunk of code, to either of two break points or frame-out, return non-zero frame rate on frame, breakpoint 0
 // *******************************************************************************************************************************
 
-BYTE8 CPUExecute(WORD16 breakPoint1,WORD16 breakPoint2) { 
+BYTE8 CPUExecute(LONG32 breakPoint1,LONG32 breakPoint2) { 
 	BYTE8 next;
 	do {
 		BYTE8 r = CPUExecuteInstruction();											// Execute an instruction
 		if (r != 0) return r; 														// Frame out.
-		next = CPUReadMemory(PC);
-	} while (PC != breakPoint1 && PC != breakPoint2 && next != 0x76);				// Stop on breakpoint or $76 HALT break
+	} while (PC != breakPoint1 && PC != breakPoint2);								// Stop on breakpoint or $76 HALT break
 	return 0; 
 }
 

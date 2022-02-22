@@ -18,6 +18,7 @@
 #include "debugger.h"
 #include "hardware.h"
 #include <m68k.h>
+#include <setup.h>
 
 #define DBGC_ADDRESS 	(0x0F0)														// Colour scheme.
 #define DBGC_DATA 		(0x0FF)														// (Background is in main.c)
@@ -85,7 +86,7 @@ void DBGXRender(int *address,int showDisplay) {
 		int isBrk = (p == address[3]);
 		GFXNumber(GRID(0,row),p,16,8,GRIDSIZE,isPC ? DBGC_HIGHLIGHT:DBGC_ADDRESS,	// Display address / highlight / breakpoint
 																	isBrk ? 0xF00 : -1);
-		int c = m68k_disassemble(buffer, p, M68K_CPU_TYPE_68040);
+		int c = m68k_disassemble(buffer, p, PROCESSOR_TYPE);
 		GFXString(GRID(9,row),buffer,GRIDSIZE,isPC ? DBGC_HIGHLIGHT:DBGC_DATA,-1);	// Print the mnemonic
 		p += c;
 	}

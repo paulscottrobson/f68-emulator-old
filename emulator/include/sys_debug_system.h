@@ -14,6 +14,7 @@
 #ifndef _DEBUG_SYS_H
 #define _DEBUG_SYS_H
 #include "sys_processor.h"
+#include <setup.h>
 
 #define DW_WIDTH  		(64)
 #define DW_HEIGHT		(32)

@@ -15,15 +15,15 @@
 #include "hardware.h"
 #include "m68k.h"
 
-static BYTE8 ramMemory[0x10000];													// Memory at $0000 upwards, 64k off
+static BYTE8 ramMemory[0x400000];													// SRAM Memory at $000000-$3FFFFFFF
+static BYTE8 flashMemory[0x400000];													// Flash memory at $FC000000-$FFFFFFFF
 
 void CPULoadBinary(char *fileName) {
 	FILE *f = fopen(fileName,"rb");
 	if (f != NULL) {
-		fread(ramMemory,1,0x10000,f); 												// Load binary to $4000
+		int n = fread(flashMemory,1,0x400000,f); 									// Load binary to $4000
 		fclose(f);
-		ramMemory[7] = 0xC0;
-		printf("*** PATCH ***\n");
+		printf("Read %d\n",n);
 		CPUReset();
 	}
 }
@@ -36,7 +36,13 @@ void CPUEndRun(void) {
 
 
 unsigned int  m68k_read_memory_8(unsigned int address){
-	return ramMemory[address & 0xFFFF];
+	if (address < 0x40000) {
+		return ramMemory[address];
+	}
+	if (address >= 0xFFC00000) {
+		return flashMemory[address & 0x3FFFF];
+	}
+	return 0xFF;
 }
 
 unsigned int  m68k_read_memory_16(unsigned int address){
@@ -73,7 +79,9 @@ unsigned int m68k_read_disassembler_32 (unsigned int address){
 
 
 void m68k_write_memory_8(unsigned int address, unsigned int value){
-	ramMemory[address & 0xFFFF] = value & 0xFF;
+	if (address < 0x40000) {
+		ramMemory[address] = value & 0xFF;
+	}
 }
 
 void m68k_write_memory_16(unsigned int address, unsigned int value){
@@ -82,8 +90,8 @@ void m68k_write_memory_16(unsigned int address, unsigned int value){
 }
 
 void m68k_write_memory_32(unsigned int address, unsigned int value){
-	m68k_write_memory_8(address+2,value & 0xFFFF);
-	m68k_write_memory_8(address,value >> 16);
+	m68k_write_memory_16(address+2,value & 0xFFFF);
+	m68k_write_memory_16(address,value >> 16);
 }
 
 
