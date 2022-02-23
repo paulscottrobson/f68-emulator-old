@@ -17,8 +17,8 @@
 #include "setup.h"
 
 static BYTE8 ramMemory[0x400000];													// SRAM Memory at $000000-$3FFFFFFF
-static BYTE8 flashMemory[0x400000];												// Flash memory at $FC000000-$FFFFFFFF
-static BYTE8 hwMemory[0x100000]; 													// RAM space at FEC00000
+static BYTE8 flashMemory[0x400000];													// Flash memory at $FC000000-$FFFFFFFF
+static BYTE8 hwMemory[HARDWARE_RAM]; 												// RAM space at FEC00000
 
 // *******************************************************************************************************************************
 //														Load a binary file.
@@ -138,7 +138,4 @@ unsigned int m68k_read_disassembler_16 (unsigned int address){
 unsigned int m68k_read_disassembler_32 (unsigned int address){
 	return m68k_read_memory_32(address);
 }
-
-
-
 
