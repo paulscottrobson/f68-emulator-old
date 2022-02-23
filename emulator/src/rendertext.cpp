@@ -25,17 +25,19 @@ int HWConvertVickyLUT(BYTE8 *lut) {
 		if (parts[i] < 0) parts[i] = 0;
 		if (parts[i] > 15) parts[i] = 15;
 	}
-	return parts[0]+(parts[1] << 4)+(parts[2] << 8);		// ARGB Bigendian
+	return parts[3]+(parts[2] << 4)+(parts[1] << 8);		// ARGB Bigendian
 }
 
 void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,int width,int height) {
-	int cWidth = 80; 									// Chars per line
-	int cHeight = 60; 									// Lines per screen
+	int pWidth = 640;
+	int pHeight = 480;;
+	int cWidth = pWidth/8; 								// Chars per line
+	int cHeight = pHeight/8; 							// Lines per screen
 	int cBWidth = 100; 									// Byte lines per width
 	int cSize = 1; 										// Char Size in pixels.
-	int colours[16];
+	int colours[32];
 
-	for (int i = 0;i < 16;i++) {
+	for (int i = 0;i < 32;i++) {
 		colours[i] = HWConvertVickyLUT(lutMem+i*4);
 	}
 
@@ -59,7 +61,7 @@ void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,
 			int ch = charMem[x+y*cBWidth];
 			int col = colMem[x+y*cBWidth];
 			int fgr = colours[col >> 4];
-			int bgr = colours[col & 0x0F];
+			int bgr = colours[(col & 0x0F)+16];
 			for (int yc = 0;yc < 8;yc++) {
 				int bitLine = fontMem[ch * 8 + yc];
 				rcp = rc;
