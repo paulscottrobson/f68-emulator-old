@@ -42,9 +42,11 @@ class BasicConfiguration(object):
 		hwStart = int(self.setup["HARDWARE_START"],16)
 		hwEnd = int(self.setup["HARDWARE_END"],16)
 		mask = self.getMask(hwStart,hwEnd)
-		h.write("#define HARDWARE_RAM 0x{0:x}\n\n".format(hwEnd-hwStart+1))
+		topMask = mask ^ 0xFFFFFFFF
+		assert (hwStart & topMask) == (hwEnd & topMask),"Start/End don't fit in page"
 
-		h.write("#define ISHWADDR(a) (((a) & 0x{0:x}) == 0x{1:x})\n\n".format(mask^0xFFFFFFFF,hwStart))
+		h.write("#define HARDWARE_RAM 0x{0:x}\n\n".format(hwEnd-hwStart+1))
+		h.write("#define ISHWADDR(a) (((a) & 0x{0:x}) == 0x{1:x})\n\n".format(topMask,hwStart))
 		#print("{0:x} {1:x} {2:x}".format(hwStart,hwEnd,mask))
 
 		hwSpace = hwEnd-hwStart + 1

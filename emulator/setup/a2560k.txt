@@ -11,3 +11,10 @@ GAVIN 			=	FEC00000
 BEATRIX 		=	FEC20000
 VICKY3A 		=	FEC40000
 VICKY3B 		=	FEC80000
+
+//
+//			Intercepted active Reads or writes
+//
+GAVIN:W:100-105:BYTE 			// Interrupt control registers, anded on write.
+
+GAVIN:R:40:LONG 				// Reading MAU pulls data from a FIFO Queue.

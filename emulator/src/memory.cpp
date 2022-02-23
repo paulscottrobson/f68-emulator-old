@@ -67,7 +67,7 @@ unsigned int  m68k_read_memory_8(unsigned int address){
 		return flashMemory[address & 0x3FFFF];
 	}
 	if (ISHWADDR(address)) {
-		if (ISDEVICE(address,ADDR_GAVIN)) {
+		if (IS_GAVIN(address)) {
 			return GAVIN_Read(address & 0x1FFFF,hwMemory+(address & 0xE0000));
 		}
 		return hwMemory[address & 0xFFFFF];
@@ -96,7 +96,7 @@ void m68k_write_memory_8(unsigned int address, unsigned int value){
 	}
 	if (ISHWADDR(address)) {
 		int hasWritten = 0;
-		if (ISDEVICE(address,ADDR_GAVIN)) 
+		if (IS_GAVIN(address)) 
 			hasWritten |= GAVIN_Write(address & 0x1FFFF,hwMemory+(address & 0xE0000),value);
 
 		if (hasWritten == 0) {
@@ -119,11 +119,11 @@ void m68k_write_memory_32(unsigned int address, unsigned int value){
 //							Duplicate R/W routines required by the CPU core for some reason
 // *******************************************************************************************************************************
 
-unsigned int  m68k_read_immediate_16(unsigned int address){
+unsigned int inline m68k_read_immediate_16(unsigned int address){
 	return m68k_read_memory_16(address);
 }
 
-unsigned int  m68k_read_immediate_32(unsigned int address){
+unsigned int inline m68k_read_immediate_32(unsigned int address){
 	return m68k_read_memory_32(address);
 }
 
