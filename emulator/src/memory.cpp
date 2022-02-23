@@ -63,7 +63,9 @@ unsigned int  m68k_read_memory_16(unsigned int address){
 }
 
 unsigned int  m68k_read_memory_32(unsigned int address){
-	return m68k_read_memory_16(address+2) + (m68k_read_memory_16(address) << 16);
+	unsigned int r = m68k_read_memory_16(address+2) + (m68k_read_memory_16(address) << 16);
+	//if (address == 0xFEC00040 && r != 0) printf("%x\n",r);
+	return r;
 }
 
 

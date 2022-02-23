@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
+#include <sys_processor.h>
+#include <hardware.h>
 #include <ctype.h>
 #include "gfx.h"
 #include <queue>
@@ -71,8 +73,10 @@ void GFXStart(int autoStart) {
 		while (SDL_PollEvent(&event)) {												// While events in event queue.
 			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) 	// Exit if ESC pressed.
 																			isRunning = 0;
-			if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)				// Handle other keys.
-						_GFXUpdateKeyRecord(event.key.keysym.sym,event.type == SDL_KEYDOWN);
+			if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {				// Handle other keys.
+				_GFXUpdateKeyRecord(event.key.keysym.sym,event.type == SDL_KEYDOWN);
+				HWScanCodeHandler(event.key.keysym.scancode,event.type == SDL_KEYDOWN);
+			}
 		}
 		SDL_FillRect(mainSurface, NULL, 											// Draw the background.
 							SDL_MapRGB(mainSurface->format, RED(background),GREEN(background),BLUE(background)));

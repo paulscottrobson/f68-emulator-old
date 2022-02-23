@@ -29,8 +29,8 @@ int HWConvertVickyLUT(BYTE8 *lut) {
 }
 
 void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,int width,int height) {
-	int pWidth = 640;
-	int pHeight = 480;;
+	int pWidth = 768;
+	int pHeight = 568;
 	int cWidth = pWidth/8; 								// Chars per line
 	int cHeight = pHeight/8; 							// Lines per screen
 	int cBWidth = 100; 									// Byte lines per width

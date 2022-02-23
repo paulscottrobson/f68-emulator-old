@@ -15,6 +15,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdio.h>
+#include "m68k.h"
+#include <setup.h>
+#include <SDL.h>
 
 // *******************************************************************************************************************************
 //												Reset Hardware
@@ -30,3 +34,21 @@ void HWReset(void) {
 void HWSync(void) {
 }
 
+// *******************************************************************************************************************************
+//											   Handle Keystrokes
+// *******************************************************************************************************************************
+
+#include <scan_lookup.h>
+
+void  HWScanCodeHandler(int scancode,int keydown) {
+	//printf("%d %d\n",scancode,keydown);
+	int n = 0;
+	while (mau_table[n] != -1 && mau_table[n] != scancode) {
+		n++;
+	}
+	if (mau_table[n] == scancode) {
+		int mau = n | (keydown ? 0x00:0x80);
+		//printf("Generating %d\n",mau);
+		GAVIN_InsertMauFIFO(mau);
+	}
+}

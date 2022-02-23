@@ -52,7 +52,7 @@ endif
 export AS = vasmm68k_mot
 export ASFLAGS = $(VASM_CPU) -quiet -Fvobj -nowarn=62
 export CC = vc
-export DEFINES = -DCPU=$(CPU_NUMBER) -DMODEL=$(MODEL_NUMBER) # -DKBD_POLLED
+export DEFINES = -DCPU=$(CPU_NUMBER) -DMODEL=$(MODEL_NUMBER) -DKBD_POLLED
 
 ifeq ($(OS),Windows_NT)
 	export CFLAGS = -cpu=$(VBCC_CPU) +$(CFG_FILE) -I. -I$(CURDIR)/include -I$(CURDIR)
