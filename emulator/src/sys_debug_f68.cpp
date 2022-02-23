@@ -74,7 +74,13 @@ void DBGXRender(int *address,int showDisplay) {
 	for (int row = 16;row < DW_HEIGHT;row++) {
 		GFXNumber(GRID(4,row),a,16,8,GRIDSIZE,DBGC_ADDRESS,-1);
 		for (int col = 0;col < 16;col++) {
+			if (GFXIsKeyPressed(GFXKEY_CONTROL)) {
+				int c = CPUReadMemory(a);
+				if (c < 0x20 || c > 0x7F) c = '.';
+				GFXCharacter(GRID(13+col*3,row),c,GRIDSIZE,DBGC_DATA,-1);
+			} else {
 			GFXNumber(GRID(13+col*3,row),CPUReadMemory(a),16,2,GRIDSIZE,DBGC_DATA,-1);
+			}	
 			a = (a + 1) & ADDRESS_MASK;
 		}		
 	}
@@ -94,5 +100,6 @@ void DBGXRender(int *address,int showDisplay) {
 	}
 
 	if (showDisplay) {
+		MEMRenderDisplay();
 	}
 }	

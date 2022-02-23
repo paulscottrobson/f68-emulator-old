@@ -19,9 +19,9 @@
 #define ADDR_GAVIN 		(0xFEC00000)
 #define ADDR_BEATRIX	(0xFEC20000)
 #define ADDR_VICKY3A  	(0xFEC40000)
-#define ADDR_VICKY3B  	(0xFEC60000)
+#define ADDR_VICKY3B  	(0xFEC80000)
 
 #define ISHWADDR(a)  	((a) >=  0xFE000000)
-#define ISDEVICE(a)  	(((a)) & 0xFFFE0000)
+#define ISDEVICE(a,d)  	((((a)) & 0xFFFE0000) == (d))
 
 #endif

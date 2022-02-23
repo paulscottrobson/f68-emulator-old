@@ -14,6 +14,7 @@
 #include "sys_debug_system.h"
 #include "hardware.h"
 #include "m68k.h"
+#include "setup.h"
 
 static BYTE8 ramMemory[0x400000];													// SRAM Memory at $000000-$3FFFFFFF
 static BYTE8 flashMemory[0x400000];												// Flash memory at $FC000000-$FFFFFFFF
@@ -37,6 +38,9 @@ void CPUEndRun(void) {
 	fclose(f);
 }
 
+void MEMRenderDisplay(void) {
+	HWRenderTextScreen(hwMemory+0x40000,hwMemory+0x60000,hwMemory+0x68000,hwMemory+0x6C400,hwMemory+0x48000,WIN_WIDTH*4/5,WIN_HEIGHT*4/5);
+}
 
 unsigned int  m68k_read_memory_8(unsigned int address){
 	if (address < 0x40000) {
@@ -46,7 +50,7 @@ unsigned int  m68k_read_memory_8(unsigned int address){
 		return flashMemory[address & 0x3FFFF];
 	}
 	if (ISHWADDR(address)) {
-		if (ISDEVICE(ADDR_GAVIN)) {
+		if (ISDEVICE(address,ADDR_GAVIN)) {
 			return GAVIN_Read(address & 0x1FFFF,hwMemory+(address & 0xE0000));
 		}
 		return hwMemory[address & 0xFFFFF];
@@ -94,7 +98,7 @@ void m68k_write_memory_8(unsigned int address, unsigned int value){
 	}
 	if (ISHWADDR(address)) {
 		int hasWritten = 0;
-		if (ISDEVICE(ADDR_GAVIN)) 
+		if (ISDEVICE(address,ADDR_GAVIN)) 
 			hasWritten |= GAVIN_Write(address & 0x1FFFF,hwMemory+(address & 0xE0000),value);
 
 		if (hasWritten == 0) {

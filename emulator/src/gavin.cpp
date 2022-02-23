@@ -23,7 +23,7 @@ static BYTE8 icr[6];
 
 int GAVIN_Read(int offset,BYTE8 *memory) {
 	printf("GAVIN:Reading offset %04x\n",offset);
-	if (offset >= 0x100 && offset < 0x106) {
+	if (offset >= 0x100 && offset < 0x106) { 				// Reading interrupt control registers
 		printf("Read %02x\n",icr[offset-0x100]);
 		return icr[offset-0x100];
 	}
@@ -38,8 +38,11 @@ int GAVIN_Read(int offset,BYTE8 *memory) {
 
 int GAVIN_Write(int offset,BYTE8 *memory,int value) {
 	printf("GAVIN:Writing offset %04x %02x\n",offset,value);
-	if (offset >= 0x100 && offset < 0x106) {
+	if (offset >= 0x100 && offset < 0x106) { 				// And write interrupt control registers
 		icr[offset-0x100] &= value;
+	}
+	if (offset == 0x2060 || offset == 0x2064) { 			// PS/2 always return 0.
+		return 1;
 	}
 	return 0;
 }

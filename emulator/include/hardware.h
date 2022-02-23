@@ -19,6 +19,10 @@ int GAVIN_Read(int offset,BYTE8 *memory);
 int GAVIN_Write(int offset,BYTE8 *memory,int value);
 void GAVIN_FlagInterrupt(int offset,int bitMask);
 
+void MEMRenderDisplay(void);
+void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,int width,int height);
+
+
 #ifdef LINUX
 #define FILESEP '/'
 #else

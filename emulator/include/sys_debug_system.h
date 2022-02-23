@@ -20,8 +20,8 @@
 #define DW_HEIGHT		(32)
 
 #define WIN_TITLE 		"A2560 Emulator"											// Initial Window stuff
-#define WIN_WIDTH		(DW_WIDTH*6*4)
-#define WIN_HEIGHT		(DW_HEIGHT*8*4)
+#define WIN_WIDTH		(DW_WIDTH*6*3)
+#define WIN_HEIGHT		(DW_HEIGHT*8*3)
 #define WIN_BACKCOLOUR	0x004
 
 // *******************************************************************************************************************************
