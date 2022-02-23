@@ -15,8 +15,8 @@ APPSTEM = .exe
 S = \\
 SDLDIR = C:\\sdl2
 CXXFLAGS = -I$(SDLDIR)$(S)include$(S)SDL2 -I . 
-LDFLAGS = -lmingw32 
-SDL_LDFLAGS = -L$(SDLDIR)$(S)lib -lSDL2 -lSDL2main 
+LDFLAGS = -lmingw32 -static-libgcc -static-libstdc++
+SDL_LDFLAGS = -L$(SDLDIR)$(S)lib  -lSDL2main  -lSDL2 
 ASMEND = 
 else
 CCOPY = cp
