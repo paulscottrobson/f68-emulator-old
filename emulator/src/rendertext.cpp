@@ -18,6 +18,10 @@
 #include "setup.h"
 #include <gfx.h>
 
+// *******************************************************************************************************************************
+//											Convert a Vicky LUT to our RGB format
+// *******************************************************************************************************************************
+
 int HWConvertVickyLUT(BYTE8 *lut) {
 	int parts[4];
 	for (int i = 0;i < 4;i++) {
@@ -28,13 +32,22 @@ int HWConvertVickyLUT(BYTE8 *lut) {
 	return parts[3]+(parts[2] << 4)+(parts[1] << 8);		// ARGB Bigendian
 }
 
+// *******************************************************************************************************************************
+//													Render text screen
+// *******************************************************************************************************************************
+
 void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,int width,int height) {
 	int pWidth = 768;
 	int pHeight = 568;
+	int scaleX = width/pWidth;
+	int scaleY = height/pHeight;
+
 	int cWidth = pWidth/8; 								// Chars per line
 	int cHeight = pHeight/8; 							// Lines per screen
 	int cBWidth = 100; 									// Byte lines per width
-	int cSize = 1; 										// Char Size in pixels.
+	int cSize = (scaleX < scaleY) ? scaleX : scaleY;	// Char Size in pixels.
+	if (cSize < 1) cSize = 1;
+
 	int colours[32];
 
 	for (int i = 0;i < 32;i++) {

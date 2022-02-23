@@ -38,7 +38,7 @@ prebuild:
 clean:
 	$(CDEL) $(APPNAME) 
 	$(CDEL) src$(S)*.o 
-	$(CDEL) framework$(S)*.o
+	$(CDEL) framework$(S)*.o cpu$(S)*.o cpu$(S)*.h
 
 $(APPNAME): $(SOURCES) 
 	$(CC) $(SOURCES) $(LDFLAGS) $(SDL_LDFLAGS) -o $@

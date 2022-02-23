@@ -3,7 +3,7 @@
 //
 //		Name:		sys_debug_system.h
 //		Purpose:	Debugger Code (System Dependent) Header
-//		Created:	1st October 2021
+//		Created:	22nd February 2022
 //		Author:		Paul Robson (paul@robsons.org.uk)
 //
 // *******************************************************************************************************************************
@@ -21,8 +21,8 @@
 #define DW_HEIGHT		(32)
 
 #define WIN_TITLE 		"A2560 Emulator"											// Initial Window stuff
-#define WIN_WIDTH		(DW_WIDTH*6*3)
-#define WIN_HEIGHT		(DW_HEIGHT*8*3)
+#define WIN_WIDTH		(DW_WIDTH*6*4+32)
+#define WIN_HEIGHT		(DW_HEIGHT*8*4+160)
 #define WIN_BACKCOLOUR	0x004
 
 // *******************************************************************************************************************************

@@ -3,7 +3,7 @@
 //
 //		Name:		gfx.c
 //		Purpose:	Support library for SDL.
-//		Created:	1st October 2021
+//		Created:	22nd February 2022
 //		Author:		Paul Robson (paul@robsons.org.uk)
 //
 // *******************************************************************************************************************************
@@ -46,7 +46,7 @@ void GFXOpenWindow(const char *title,int width,int height,int colour) {
 	}
 
 	mainWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, 					// Try to create a window
-							SDL_WINDOWPOS_UNDEFINED, width+64,height+64, SDL_WINDOW_SHOWN );
+							SDL_WINDOWPOS_UNDEFINED, width,height, SDL_WINDOW_SHOWN );
 	if (mainWindow == NULL) {
 		exit(printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() ));
 	}

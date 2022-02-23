@@ -6,6 +6,8 @@ Standard make, requires SDL2 only.
 Builds on Windows with mingw32, SDL2 64 bit installed in c:\sdl2 and needs SDL2.dll and libwinpthread-1.dll - I will try to keep this
 up to date - ish as I can build it on Virtual box. Seems to run okay. 
 
+When building a pull do a make clean first so old .o files from another OS don't get in the way, then build with MAKE -B
+
 Running. Can't load external files, yet, it just runs boot.rom which is a current build of the A2560K bios unmodified except for
 the use of Polled Keyboard (Int version seems to be partially done ?)
 

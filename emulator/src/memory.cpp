@@ -20,6 +20,10 @@ static BYTE8 ramMemory[0x400000];													// SRAM Memory at $000000-$3FFFFFF
 static BYTE8 flashMemory[0x400000];												// Flash memory at $FC000000-$FFFFFFFF
 static BYTE8 hwMemory[0x100000]; 													// RAM space at FEC00000
 
+// *******************************************************************************************************************************
+//														Load a binary file.
+// *******************************************************************************************************************************
+
 void CPULoadBinary(char *fileName) {
 	FILE *f = fopen(fileName,"rb");
 	if (f != NULL) {
@@ -32,15 +36,28 @@ void CPULoadBinary(char *fileName) {
 	}
 }
 
+// *******************************************************************************************************************************
+//														Dump Memory on exit
+// *******************************************************************************************************************************
+
 void CPUEndRun(void) {
 	FILE *f = fopen("memory.dump","wb");
 	fwrite(ramMemory,1,sizeof(ramMemory),f);
 	fclose(f);
 }
 
+// *******************************************************************************************************************************
+//														Render the display
+// *******************************************************************************************************************************
+
 void MEMRenderDisplay(void) {
-	HWRenderTextScreen(hwMemory+0x40000,hwMemory+0x60000,hwMemory+0x68000,hwMemory+0x6C400,hwMemory+0x48000,WIN_WIDTH*4/5,WIN_HEIGHT*4/5);
+	HWRenderTextScreen(hwMemory+0x40000,hwMemory+0x60000,hwMemory+0x68000,
+							hwMemory+0x6C400,hwMemory+0x48000,WIN_WIDTH,WIN_HEIGHT);
 }
+
+// *******************************************************************************************************************************
+//													  Generic read routines
+// *******************************************************************************************************************************
 
 unsigned int  m68k_read_memory_8(unsigned int address){
 	if (address < 0x40000) {
@@ -68,30 +85,9 @@ unsigned int  m68k_read_memory_32(unsigned int address){
 	return r;
 }
 
-
-unsigned int  m68k_read_immediate_16(unsigned int address){
-	return m68k_read_memory_16(address);
-}
-
-unsigned int  m68k_read_immediate_32(unsigned int address){
-	return m68k_read_memory_32(address);
-}
-
-
-
-unsigned int m68k_read_disassembler_8  (unsigned int address){
-	return m68k_read_memory_8(address);
-}
-
-unsigned int m68k_read_disassembler_16 (unsigned int address){
-	return m68k_read_memory_16(address);
-}
-
-unsigned int m68k_read_disassembler_32 (unsigned int address){
-	return m68k_read_memory_32(address);
-}
-
-
+// *******************************************************************************************************************************
+//													 Generic write routines
+// *******************************************************************************************************************************
 
 void m68k_write_memory_8(unsigned int address, unsigned int value){
 	if (address < 0x40000) {
@@ -118,6 +114,31 @@ void m68k_write_memory_32(unsigned int address, unsigned int value){
 	m68k_write_memory_16(address+2,value & 0xFFFF);
 	m68k_write_memory_16(address,value >> 16);
 }
+
+// *******************************************************************************************************************************
+//							Duplicate R/W routines required by the CPU core for some reason
+// *******************************************************************************************************************************
+
+unsigned int  m68k_read_immediate_16(unsigned int address){
+	return m68k_read_memory_16(address);
+}
+
+unsigned int  m68k_read_immediate_32(unsigned int address){
+	return m68k_read_memory_32(address);
+}
+
+unsigned int m68k_read_disassembler_8  (unsigned int address){
+	return m68k_read_memory_8(address);
+}
+
+unsigned int m68k_read_disassembler_16 (unsigned int address){
+	return m68k_read_memory_16(address);
+}
+
+unsigned int m68k_read_disassembler_32 (unsigned int address){
+	return m68k_read_memory_32(address);
+}
+
 
 
 
