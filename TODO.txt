@@ -1,4 +1,4 @@
-- Demo code so people can figure it out.
+- Demo 'C' code 
 - Bitmap display
 - Add timers.
 - Screen size ? How ?

@@ -24,11 +24,10 @@ run: emulator
 debug: emulator 
 	.$(S)$(APPNAME) testasm$(S)test.s68
 
-motorola: emulator 
-	.$(S)$(APPNAME) testasm$(S)test.s68
-intel: emulator 
-	.$(S)$(APPNAME) testasm$(S)test.hex
-	
+asample: emulator
+	make -C assembly
+	.$(S)$(APPNAME) assembly$(S)sample.s68 go
+
 emulator: prebuild $(APPNAME)
 
 prebuild:

@@ -1,0 +1,63 @@
+Sections:
+00: "seg10000" (10000-1003A)
+
+
+Source: "sample.asm"
+                            	     1: ;
+                            	     2: ; 		Sample assembly program.
+                            	     3: ;
+                            	     4: ;		Originally written by pweingar
+                            	     5: ;
+                            	     6: 
+                            	     7: 
+                            	     8: 				org 	$10000
+                            	     9: 
+                            	    10: start:          									; start tells us where to run from, because of -exec=start in the command line.
+                            	    11: 				;
+                            	    12: 				; 		Write Hello world using the O/S
+                            	    13: 				;
+00:00010000 7013            	    14: 				move.l #$13,d0                      ; sys_chan_write command #
+00:00010002 7200            	    15:                 clr.l d1                            ; Channel #0 (the display)
+00:00010004 243C0001002C    	    16:                 move.l #greet,d2                    ; Pointer to message
+00:0001000A 760E            	    17:                 move.l #greet_end-greet+1,d3        ; Length of message
+00:0001000C 4E4F            	    18:                 trap #15 							; handles system functions
+                            	    19:                 ;
+                            	    20:                 ;		Write Hello world by writing straight to text memory
+                            	    21:                 ;
+00:0001000E 41F9FEC60000    	    22:                 lea.l 	$FEC60000,a0 				; screen text memory here
+00:00010014 103C0020        	    23:                 move.b 	#32,d0 						; do it 32 times.
+00:00010018 43FA0012        	    24: repeatmessage:  lea.l 	greet,a1 					; message here
+                            	    25: copymessage:
+00:0001001C 10D9            	    26: 				move.b 	(a1)+,(a0)+ 				; copy byte over.
+00:0001001E 4A51            	    27: 				tst 	(a1) 						; is it zero.
+00:00010020 66FA            	    28: 				bne 	copymessage 				; do until trailing 0 found.
+00:00010022 56C8FFF4        	    29: 				dbne 	d0,repeatmessage 			; do it again !
+                            	    30: 				;
+                            	    31: 				; 		Exit the program.
+                            	    32: 				;
+00:00010026 7000            	    33: done:           clr.l d0                            ; sys_exit
+00:00010028 7200            	    34:                 clr.l d1                            ; Return value = 0
+00:0001002A 4E4F            	    35:                 trap #15
+                            	    36: 
+00:0001002C 48656C6C6F2C2077	    37: greet:          dc.b "Hello, world!"
+00:00010034 6F726C6421
+00:00010039 00              	    38: greet_end:      dc.b 0
+                            	    39: 
+                            	    40: 
+
+
+Symbols by name:
+copymessage                      A:0001001C
+done                             A:00010026
+greet                            A:0001002C
+greet_end                        A:00010039
+repeatmessage                    A:00010018
+start                            A:00010000
+
+Symbols by value:
+00010000 start
+00010018 repeatmessage
+0001001C copymessage
+00010026 done
+0001002C greet
+00010039 greet_end

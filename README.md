@@ -45,3 +45,10 @@ F9 				Set Breakpoint
 When building s68 or hex files using VASM, the option -exec=<start label> (or just -exec if the file runs from start) must be on the command line.
 
 If it isn't, there is no way of telling where the program starts. 
+
+Samples
+=======
+
+asample is an assembler sample based on the original by P.Weingar. It shows copying to the screen and using the O/S
+
+make asample should run it, when it boots press F1 to start.
