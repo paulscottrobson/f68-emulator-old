@@ -20,6 +20,7 @@ int Gavin_Write(int offset,BYTE8 *memory,int value,int size);
 
 void GAVIN_FlagInterrupt(int offset,int bitMask);
 void GAVIN_InsertMauFIFO(int mau);
+void GAVIN_UpdateTimers(int cycles,int frames);
 
 void MEMRenderDisplay(void);
 void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,int width,int height);

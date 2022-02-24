@@ -1,5 +1,4 @@
 - Demo 'C' code 
 - Bitmap display
-- Add timers.
 - Screen size ? How ?
-- Add video RAM.
+

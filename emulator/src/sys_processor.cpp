@@ -79,7 +79,8 @@ BYTE8 CPUExecuteInstruction(void) {
 	HWSync();																		// Update any hardware
 	m68k_set_irq(5); 																// Interrupt level 5 (Vicky A)
 	GAVIN_FlagInterrupt(1,1); 								 						// Bit 0 of ICR 1 (Vicky A)
-	return FRAME_RATE;																// Return frame rate.
+	GAVIN_UpdateTimers(CYCLES_PER_FRAME,1); 										// Update the timers.
+	return FRAME_RATE;																// Return frame rate.	
 }
 
 // *******************************************************************************************************************************

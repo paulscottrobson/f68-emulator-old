@@ -11,8 +11,9 @@
 
 #include <includes.h>
 
-static BYTE8 ramMemory[0x400000];													// SRAM Memory at $000000-$3FFFFFFF
+static BYTE8 ramMemory[0x400000];													// SRAM Memory at $000000-$003FFFFF
 static BYTE8 flashMemory[0x400000];													// Flash memory at $FC000000-$FFFFFFFF
+static BYTE8 videoMemory[0x800000];													// VRAM at $00800000-$00FFFFFF
 static BYTE8 hwMemory[HARDWARE_RAM]; 												// RAM space at FEC00000
 
 // *******************************************************************************************************************************
@@ -54,12 +55,21 @@ void MEMRenderDisplay(void) {
 // *******************************************************************************************************************************
 
 unsigned int  m68k_read_memory_8(unsigned int address){
+
+	address &= ADDRESS_MASK;
+
 	if (address < 0x40000) {
 		return ramMemory[address];
 	}
+
 	if (address >= 0xFFC00000) {
 		return flashMemory[address & 0x3FFFF];
 	}
+
+	if (address >= VRAM_START && address <= VRAM_END) {
+		return videoMemory[address-VRAM_START];
+	}
+
 	if (ISHWADDR(address)) {
 		#include "generated/hw_gavin_read_byte.h"
 		#include "generated/hw_beatrix_read_byte.h"
@@ -96,10 +106,18 @@ unsigned int  m68k_read_memory_32(unsigned int address){
 // *******************************************************************************************************************************
 
 void m68k_write_memory_8(unsigned int address, unsigned int value){
+
+	address &= ADDRESS_MASK;
+
 	if (address < 0x40000) {
 		ramMemory[address] = value & 0xFF;
 		return;
 	}
+
+	if (address >= VRAM_START && address <= VRAM_END) {
+		videoMemory[address-VRAM_START] = value;
+	}
+
 	if (ISHWADDR(address)) {
 		#include "generated/hw_gavin_write_byte.h"
 		#include "generated/hw_beatrix_write_byte.h"

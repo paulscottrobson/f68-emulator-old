@@ -33,6 +33,17 @@ copymessage:
 				tst 	(a1) 						; is it zero.
 				bne 	copymessage 				; do until trailing 0 found.
 				dbne 	d0,repeatmessage 			; do it again !
+
+track:
+				move.l 	($FEC00208),d0
+				move.l 	d0,($FEC60000)	
+				move.l 	($FEC00210),d0
+				move.l 	d0,($FEC60006)	
+				move.l 	($FEC00218),d0
+				move.l 	d0,($FEC6000C)	
+				move.l 	($FEC00220),d0
+				move.l 	d0,($FEC60012)	
+				bra 	track
 				;
 				; 		Exit the program.
 				;

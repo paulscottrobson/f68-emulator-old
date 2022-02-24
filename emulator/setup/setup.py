@@ -70,6 +70,8 @@ class BasicConfiguration(object):
 						"FLASH_ROM":None,
 						"HARDWARE_START":None,
 						"HARDWARE_END":None,
+						"VRAM_START":None,
+						"VRAM_END":None,
 						"BEATRIX":None,
 						"GAVIN":None,
 						"VICKY3B":None,
@@ -91,6 +93,9 @@ class BasicConfiguration(object):
 		h.write("#define ADDRESS_MASK (0x{0})\n\n".format(self.setup["ADDRESS_MASK"]))
 		h.write("#define HARDWARE_START (0x{0})\n\n".format(self.setup["HARDWARE_START"]))
 		h.write("#define PROCESSOR_TYPE (M68K_CPU_TYPE_{0})\n\n".format(self.setup["CPU"]))
+		h.write("#define VRAM_START (0x{0})\n".format(self.setup["VRAM_START"]))
+		h.write("#define VRAM_END (0x{0})\n\n".format(self.setup["VRAM_END"]))
+
 
 		assert self.setup["FLASH_ROM"] is not None,"No ROM defined"
 		h.write("#define FLASH_ROM (\"{0}\")\n\n".format(self.setup["FLASH_ROM"].lower()))

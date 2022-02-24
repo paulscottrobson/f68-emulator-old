@@ -13,6 +13,7 @@
 
 static BYTE8 icr[6];
 static BYTE8 mauQueue = 0;
+static LONG32 timers[4];
 
 // *******************************************************************************************************************************
 //
@@ -45,10 +46,36 @@ int Gavin_Read(int offset,BYTE8 *memory,int size) {
 		return qHead;
 	}
 	//
+	// 		Reading from timers
+	//
+	if (HW_IS_GAVIN_TIMERS(offset)) {
+		if ((offset & 7) == 0) {
+			return timers[(offset - 0x208) >> 3];
+		}
+	}
+	//
+	// 		Reading from RTC, update it with actual values before the read.
+	//		Writing will not work :)
+	//
+	if (HW_IS_GAVIN_RTC(offset)) {
+	    struct tm* ptr;
+	    time_t t;
+	    t = time(NULL);
+	    ptr = localtime(&t);
+		memory[0x80] = ptr->tm_sec; 					// seconds
+		memory[0x82] = ptr->tm_min; 					// minuts
+		memory[0x84] = ptr->tm_hour; 					// hours
+		memory[0x86] = ptr->tm_mday; 					// day
+		memory[0x88] = ptr->tm_wday; 					// day of week
+		memory[0x89] = ptr->tm_mon; 					// month
+		memory[0x8A] = ptr->tm_year % 100; 				// year
+	}
+	//
 	//		Default
 	//
 	return memory[offset];
 }
+
 
 // *******************************************************************************************************************************
 //
@@ -65,6 +92,15 @@ int Gavin_Write(int offset,BYTE8 *memory,int value,int size) {
 	if (HW_IS_GAVIN_INTERRUPTCTRL(offset)) {
 		icr[offset - 0x100] &= value;
 		return 1;
+	}
+	//
+	// 		Writing to timers
+	//
+	if (HW_IS_GAVIN_TIMERS(offset)) {
+		if ((offset & 7) == 0) {
+			timers[(offset - 0x208) >> 3] = value;
+			return 1;
+		}
 	}
 	return 0;
 }
@@ -87,4 +123,17 @@ void GAVIN_FlagInterrupt(int offset,int bitMask) {
 
 void GAVIN_InsertMauFIFO(int mau) {
 	mauQueue = mau;
+}
+
+// *******************************************************************************************************************************
+//
+//											Update timers, currently free running
+//
+// *******************************************************************************************************************************
+
+void GAVIN_UpdateTimers(int cycles,int frames) {
+	timers[0] += cycles;
+	timers[1] += cycles;
+	timers[2] += frames;
+	timers[3] += frames;
 }

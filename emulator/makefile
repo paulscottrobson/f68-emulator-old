@@ -19,10 +19,10 @@ all: emulator
 #	.$(S)$(APPNAME) 
 
 run: emulator 
-	.$(S)$(APPNAME) testasm$(S)test.s68 go
+	.$(S)$(APPNAME) go
 
 debug: emulator 
-	.$(S)$(APPNAME) testasm$(S)test.s68
+	.$(S)$(APPNAME) 
 
 asample: emulator
 	make -C assembly
