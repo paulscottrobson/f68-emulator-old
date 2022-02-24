@@ -1,5 +1,4 @@
 - Finish configuration system basic.
 - Bitmap display
 - Background colour
-- Finish off keyboard (control/shift keys etc)
 - Cursor ?
