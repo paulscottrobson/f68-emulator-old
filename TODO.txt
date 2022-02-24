@@ -1,4 +1,5 @@
 - Finish configuration system basic.
 - Bitmap display
-- Background colour
-- Cursor ?
+- Add timers.
+- Screen size ? How ?
+

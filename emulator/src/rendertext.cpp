@@ -29,6 +29,8 @@ int HWConvertVickyLUT(BYTE8 *lut) {
 //													Render text screen
 // *******************************************************************************************************************************
 
+static int renderCount = 0;
+
 void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,int width,int height) {
 	int pWidth = 768;
 	int pHeight = 568;
@@ -41,16 +43,25 @@ void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,
 	int cSize = (scaleX < scaleY) ? scaleX : scaleY;	// Char Size in pixels.
 	if (cSize < 1) cSize = 1;
 
+	int xCursor = -1,yCursor = -1;
 	int colours[32];
 
+	int border = HWConvertVickyLUT(vicky+8);	 		// Convert BGR
+
+	renderCount++;
 	for (int i = 0;i < 32;i++) {
 		colours[i] = HWConvertVickyLUT(lutMem+i*4);
+	}
+
+	if (vicky[0x13] & 1) { 								// Cursor on.
+		yCursor = (vicky[0x14] << 8) + vicky[0x15]; 	// Get location
+		xCursor = (vicky[0x16] << 8) + vicky[0x17];
 	}
 
 	SDL_Rect rc,rcp; 
 	rc.w = width;rc.h = height; 						// Erase window space.
 	rc.x = WIN_WIDTH/2 - rc.w/2;rc.y = WIN_HEIGHT/2-rc.h/2;
-	GFXRectangle(&rc,0x840); 							// TODO: Correct background.
+	GFXRectangle(&rc,border);
 
 	int xOrg = WIN_WIDTH/2-cWidth*8*cSize/2; 			// Work out character origin.
 	int yOrg = WIN_HEIGHT/2-cHeight*8*cSize/2;
@@ -64,8 +75,13 @@ void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,
 			rc.x = xOrg+x*8*cSize;
 			rc.y = yOrg+y*8*cSize;
 			rc.w = rc.h = cSize;
-			int ch = charMem[x+y*cBWidth];
-			int col = colMem[x+y*cBWidth];
+			int offset = x+y*cBWidth;
+			int ch = charMem[offset];
+			int col = colMem[offset];
+			if (x == xCursor && y == yCursor & (renderCount & 4) == 0) {
+				col = vicky[0x10];
+				ch = vicky[0x11];
+			}
 			int fgr = colours[col >> 4];
 			int bgr = colours[(col & 0x0F)+16];
 			for (int yc = 0;yc < 8;yc++) {
