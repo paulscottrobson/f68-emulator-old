@@ -12,6 +12,13 @@
 #ifndef _HARDWARE_H
 #define _HARDWARE_H
 
+#define IRQ_VICKY_B 		(6)
+#define IRQ_VICKY_A  		(5)
+#define IRQ_GAVIN_SUPERIO 	(4)
+#define IRQ_GAVIN_TIMER 	(3)
+#define IRQ_BEATRIX_IDESDYAM (2)
+#define IRQ_BEATRIX_DAC  	(1)
+
 void HWReset(void);
 void HWSync(void);
 

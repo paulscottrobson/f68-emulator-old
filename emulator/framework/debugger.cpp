@@ -37,7 +37,7 @@ void GFXXRender(SDL_Surface *surface,int autoStart) {
 		addressSettings[3] = 0xFFFFFFFE;
 		stepBreakPoint = 0xFFFFFFFE;
 
-		//addressSettings[3] = 0xFFC10D20;
+		addressSettings[3] = 0xFFC10054;
 	
 		DBGDefineKey(DBGKEY_RESET,GFXKEY_F1);										// Assign default keys
 		DBGDefineKey(DBGKEY_SHOW,GFXKEY_TAB);
