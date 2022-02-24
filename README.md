@@ -15,9 +15,9 @@ The long pause at the start is because it makes a bong noise and displays a bitm
 
 In the emulator directory either 
 
-./f68 boot.rom 					(debug)
+./f68 <files>					(debug)
 or
-./f68 boot.rom go 				(run)
+./f68 <files> go 				(run)
 
 Debug keys
 ==========
@@ -35,3 +35,8 @@ F7 				Single Step
 F8 				Step over JSR/BSR/Trap
 F9 				Set Breakpoint
 
+*** NOTE ***
+
+When building s68 or hex files using VASM, the option -exec=<start label> (or just -exec if the file runs from start) must be on the command line.
+
+If it isn't, there is no way of telling where the program starts. 
