@@ -19,10 +19,10 @@ all: emulator
 #	.$(S)$(APPNAME) 
 
 run: emulator 
-	.$(S)$(APPNAME) boot.rom go
+	.$(S)$(APPNAME) 
 
 debug: emulator 
-	.$(S)$(APPNAME) boot.rom
+	.$(S)$(APPNAME) 
 	
 emulator: prebuild $(APPNAME)
 

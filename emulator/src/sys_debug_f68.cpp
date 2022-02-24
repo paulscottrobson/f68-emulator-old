@@ -9,16 +9,7 @@
 // *******************************************************************************************************************************
 // *******************************************************************************************************************************
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "gfx.h"
-#include "sys_processor.h"
-#include "debugger.h"
-#include "hardware.h"
-#include <m68k.h>
-#include <setup.h>
+#include <includes.h>
 
 #define DBGC_ADDRESS 	(0x0F0)														// Colour scheme.
 #define DBGC_DATA 		(0x0FF)														// (Background is in main.c)

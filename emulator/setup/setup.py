@@ -21,6 +21,7 @@ class BasicConfiguration(object):
 	def __init__(self,source):
 		self.setup = { 	"CPU":"68000",
 						"ADDRESS_MASK":"FFFFFFFF",
+						"FLASH_ROM":None,
 						"HARDWARE_START":None,
 						"HARDWARE_END":None,
 						"BEATRIX":None,
@@ -38,6 +39,9 @@ class BasicConfiguration(object):
 		h.write("//\n//\tAutomatically generated.\n//\n")
 		h.write("#define ADDRESS_MASK (0x{0})\n".format(self.setup["ADDRESS_MASK"]))
 		h.write("#define PROCESSOR_TYPE (M68K_CPU_TYPE_{0})\n\n".format(self.setup["CPU"]))
+
+		assert self.setup["FLASH_ROM"] is not None,"No ROM defined"
+		h.write("#define FLASH_ROM (\"{0}\")\n\n".format(self.setup["FLASH_ROM"].lower()))
 
 		hwStart = int(self.setup["HARDWARE_START"],16)
 		hwEnd = int(self.setup["HARDWARE_END"],16)

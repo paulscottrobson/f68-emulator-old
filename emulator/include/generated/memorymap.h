@@ -4,6 +4,8 @@
 #define ADDRESS_MASK (0xFFFFFFFF)
 #define PROCESSOR_TYPE (M68K_CPU_TYPE_68040)
 
+#define FLASH_ROM ("a2560k.rom")
+
 #define HARDWARE_RAM 0x100000
 
 #define ISHWADDR(a) (((a) & 0xfff00000) == 0xfec00000)

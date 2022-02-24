@@ -9,23 +9,33 @@
 // *******************************************************************************************************************************
 // *******************************************************************************************************************************
 
-#include <stdio.h>
-#include "sys_processor.h"
-#include "sys_debug_system.h"
-#include "hardware.h"
-#include "m68k.h"
-#include "setup.h"
+#include <includes.h>
 
 static BYTE8 ramMemory[0x400000];													// SRAM Memory at $000000-$3FFFFFFF
 static BYTE8 flashMemory[0x400000];													// Flash memory at $FC000000-$FFFFFFFF
 static BYTE8 hwMemory[HARDWARE_RAM]; 												// RAM space at FEC00000
 
 // *******************************************************************************************************************************
+//														Load Flash ROM
+// *******************************************************************************************************************************
+
+void MEMLoadFlashROM(void) {
+	FILE *f = fopen(FLASH_ROM,"rb"); 												// Read Flash ROM
+	if (f == NULL)
+		exit(fprintf(stderr,"Flash rom %s missing",FLASH_ROM));
+	fread(flashMemory,1,sizeof(flashMemory),f);
+	fclose(f);	
+	for (int i = 0;i < 64*1024;i++) { 												// Copy first 64k to SRAM
+		ramMemory[i] = flashMemory[i];
+	}
+}
+
+// *******************************************************************************************************************************
 //														Load a binary file.
 // *******************************************************************************************************************************
 
-void CPULoadBinary(char *fileName) {
-	FILE *f = fopen(fileName,"rb");
+void MEMLoadBinary(char *fileName) {
+	FILE *f = fopen(fileName,"rb");	
 	if (f != NULL) {
 		int n = fread(flashMemory,1,0x400000,f); 									// Load binary to $4000
 		fclose(f);
@@ -40,7 +50,7 @@ void CPULoadBinary(char *fileName) {
 //														Dump Memory on exit
 // *******************************************************************************************************************************
 
-void CPUEndRun(void) {
+void MEMEndRun(void) {
 	FILE *f = fopen("memory.dump","wb");
 	fwrite(ramMemory,1,sizeof(ramMemory),f);
 	fclose(f);

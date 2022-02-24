@@ -24,6 +24,7 @@ BYTE8 CPUWriteKeyboard(BYTE8 pattern);
 BYTE8 CPUReadMemory(LONG32 address);
 void CPUWriteMemory(LONG32 address,BYTE8 data);
 
+void MEMLoadFlashROM(void);
 
 
 #define PC 			(CPUGetStatus()->pc)
@@ -32,8 +33,8 @@ void CPUWriteMemory(LONG32 address,BYTE8 data);
 
 BYTE8 CPUExecute(LONG32 breakPoint1,LONG32 breakPoint2);
 LONG32 CPUGetStepOverBreakpoint(void);
-void CPUEndRun(void);
-void CPULoadBinary(char *fileName);
+void MEMEndRun(void);
+void MEMLoadBinary(char *fileName);
 void CPUExit(void);
 
 typedef struct _CPUStatus {

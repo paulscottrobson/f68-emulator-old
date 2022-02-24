@@ -1,28 +1,21 @@
 // *******************************************************************************************************************************
 // *******************************************************************************************************************************
 //
-//		Name:		main.c
-//		Purpose:	Main program
-//		Created:	22nd February 2022
+//		Name:		includes.h
+//		Purpose:	Composite includes file
+//		Created:	24th February 2022
 //		Author:		Paul Robson (paul@robsons.org.uk)
 //
 // *******************************************************************************************************************************
 // *******************************************************************************************************************************
 
 #include <stdio.h>
-#include "gfx.h"
-#include "sys_processor.h"
-#include "sys_debug_system.h"
-#include "debugger.h"
-
-int main(int argc,char *argv[]) {
-	DEBUG_RESET();
-	DEBUG_ARGUMENTS(argc,argv);
-	GFXOpenWindow(WIN_TITLE,WIN_WIDTH,WIN_HEIGHT,WIN_BACKCOLOUR);
-	GFXStart(argc == 3);
-	MEMEndRun();
-	GFXCloseWindow();
-	return(0);
-}
-
-
+#include <stdlib.h>
+#include <sys_processor.h>
+#include <hardware.h>
+#include <m68k.h>
+#include <setup.h>
+#include <SDL.h>
+#include <gfx.h>
+#include <debugger.h>
+#include <sys_debug_system.h>
