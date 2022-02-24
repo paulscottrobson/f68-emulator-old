@@ -1,3 +1,4 @@
+- Demo code so people can figure it out.
 - Bitmap display
 - Add timers.
 - Screen size ? How ?
