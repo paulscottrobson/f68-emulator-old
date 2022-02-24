@@ -1,7 +1,10 @@
 //
 //	Automatically generated.
 //
+#define BUILD_TIME ("Thu 24-Feb-2022 15:06")
+
 #define ADDRESS_MASK (0xFFFFFFFF)
+
 #define PROCESSOR_TYPE (M68K_CPU_TYPE_68040)
 
 #define FLASH_ROM ("a2560k.rom")

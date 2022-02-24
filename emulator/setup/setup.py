@@ -9,7 +9,7 @@
 # *******************************************************************************************************************************
 # *******************************************************************************************************************************
 
-import re,sys,os
+import re,sys,os,datetime
 
 # *******************************************************************************************************************************
 #
@@ -36,8 +36,11 @@ class BasicConfiguration(object):
 				self.setup[m.group(1)] = m.group(2).strip()
 	#
 	def render(self,h):
+		time = datetime.datetime.now().strftime("%a %d-%b-%Y %H:%M")
+
 		h.write("//\n//\tAutomatically generated.\n//\n")
-		h.write("#define ADDRESS_MASK (0x{0})\n".format(self.setup["ADDRESS_MASK"]))
+		h.write("#define BUILD_TIME (\"{0}\")\n\n".format(time))
+		h.write("#define ADDRESS_MASK (0x{0})\n\n".format(self.setup["ADDRESS_MASK"]))
 		h.write("#define PROCESSOR_TYPE (M68K_CPU_TYPE_{0})\n\n".format(self.setup["CPU"]))
 
 		assert self.setup["FLASH_ROM"] is not None,"No ROM defined"
@@ -81,5 +84,6 @@ source = open("a2560k.txt").readlines()
 source = [x if x.find("//") < 0 else x[:x.find("//")] for x in source]		
 source = [x.replace("\t"," ").strip().upper() for x in source if x.strip() != ""]
 
+print("Processing configuration.")
 bc = BasicConfiguration(source)
 bc.render(open("../include/generated/memorymap.h".replace("/",os.sep),"w"))

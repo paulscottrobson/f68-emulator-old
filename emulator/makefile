@@ -33,6 +33,7 @@ emulator: prebuild $(APPNAME)
 
 prebuild:
 	make -C ..$(S)Musashi
+	make -C setup
 	$(CCOPY) ..$(S)Musashi$(S)*.h cpu
 	$(CCOPY) ..$(S)Musashi$(S)*.o cpu
 	$(CCOPY) ..$(S)Musashi$(S)softfloat$(S)*.o cpu
