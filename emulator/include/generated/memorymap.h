@@ -1,9 +1,11 @@
 //
 //	Automatically generated.
 //
-#define BUILD_TIME ("Thu 24-Feb-2022 15:55")
+#define BUILD_TIME ("Thu 24-Feb-2022 16:48")
 
 #define ADDRESS_MASK (0xFFFFFFFF)
+
+#define HARDWARE_START (0xFEC00000)
 
 #define PROCESSOR_TYPE (M68K_CPU_TYPE_68040)
 
@@ -27,3 +29,4 @@
 
 #define HW_IS_GAVIN_INTERRUPTCTRL(a)  (((a) >= 0x100) && ((a) < 0x106))
 #define HW_IS_GAVIN_READMAU(a)  ((a) == 0x40)
+#define HW_IS_GAVIN_READPS2(a)  (((a) >= 0x2060) && ((a) < 0x2068))

@@ -1,5 +1,4 @@
-- Finish configuration system basic.
 - Bitmap display
 - Add timers.
 - Screen size ? How ?
-
+- Add video RAM.

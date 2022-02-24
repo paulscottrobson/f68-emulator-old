@@ -1,7 +1,10 @@
 # f68-emulator
 A2560K Emulator
 
-Standard make, requires SDL2 only. (Changing the setup file requires Python)
+Standard make requires SDL2 only. 
+
+(Python 3 is technically required to build, but you can comment make -C setup from the makefile and it will work, albeit with the 
+wrong timestamp)
 
 Builds on Windows with mingw32, SDL2 64 bit installed in c:\sdl2 and needs SDL2.dll and libwinpthread-1.dll - I will try to keep this
 up to date - ish as I can build it on Virtual box. Seems to run okay. 

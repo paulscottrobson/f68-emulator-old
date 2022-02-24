@@ -89,6 +89,7 @@ class BasicConfiguration(object):
 		h.write("//\n//\tAutomatically generated.\n//\n")
 		h.write("#define BUILD_TIME (\"{0}\")\n\n".format(time))
 		h.write("#define ADDRESS_MASK (0x{0})\n\n".format(self.setup["ADDRESS_MASK"]))
+		h.write("#define HARDWARE_START (0x{0})\n\n".format(self.setup["HARDWARE_START"]))
 		h.write("#define PROCESSOR_TYPE (M68K_CPU_TYPE_{0})\n\n".format(self.setup["CPU"]))
 
 		assert self.setup["FLASH_ROM"] is not None,"No ROM defined"
@@ -145,7 +146,17 @@ class BasicConfiguration(object):
 						h.write("\tif ({0}(a)) {{\n".format(a.getTestName()))
 						s = 2 if size[0] == "W" else 4
 						s = 1 if size[0] == "B" else s
-						h.write("\t\t{0}_{1}(a,{2}{3});\n".format(self.caps(device),self.caps(direction),"" if direction == "READ" else "value,",s))
+						deviceMem = "(hwMemory + ADDR_GAVIN - HARDWARE_START)"
+						if direction == "READ":
+							h.write("\t\treturn {0}_{1}(a,{2},{3});\n".format(self.caps(device),
+																	  		  self.caps(direction),
+																			  deviceMem,
+																	  		  s));
+						else:																	  		  																	 
+							h.write("\t\tif({0}_{1}(a,{2},value,{3})) return;\n".format(self.caps(device),
+																	  		  self.caps(direction),
+																			  deviceMem,
+																	  		  s));
 						h.write("\t}\n")
 			h.write("}\n")
 	#

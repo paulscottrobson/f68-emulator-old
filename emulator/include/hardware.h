@@ -15,8 +15,9 @@
 void HWReset(void);
 void HWSync(void);
 
-int GAVIN_Read(int offset,BYTE8 *memory);
-int GAVIN_Write(int offset,BYTE8 *memory,int value);
+int Gavin_Read(int offset,BYTE8 *memory,int size);
+int Gavin_Write(int offset,BYTE8 *memory,int value,int size);
+
 void GAVIN_FlagInterrupt(int offset,int bitMask);
 void GAVIN_InsertMauFIFO(int mau);
 

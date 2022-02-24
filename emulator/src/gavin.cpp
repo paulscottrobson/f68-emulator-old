@@ -20,22 +20,33 @@ static BYTE8 mauQueue = 0;
 //
 // *******************************************************************************************************************************
 
-int GAVIN_Read(int offset,BYTE8 *memory) {
-	//printf("GAVIN:Reading offset %04x\n",offset);
-	if (offset >= 0x100 && offset < 0x106) { 				// Reading interrupt control registers
-		//printf("Read ICR %02x\n",icr[offset-0x100]);
+int Gavin_Read(int offset,BYTE8 *memory,int size) {
+//	printf("GAVIN:Reading memory %04x %d\n",offset,size);
+//	printf("Gavin Address %x\n",memory);
+
+	//
+	//		We manage the ICR ourselves
+	//
+	if (HW_IS_GAVIN_INTERRUPTCTRL(offset)) {
 		return icr[offset-0x100];
 	}
-	if (offset >= 0x40 && offset < 0x44) { 					// Reading MAU register.
-		if (offset == 0x40) { 								// Reading first MAU.
-			int next = mauQueue;							// Next to go.
-			memory[offset] = 0x00;
-			memory[offset+1] = 0x00;
-			memory[offset+2] = (next == 0) ? 0 : 0xFF;
-			memory[offset+3] = next;
-			mauQueue = 0;									// Pop from queue.
-		}		
+	//
+	// 		Reading the PS/2 port always returns zero, it's dead.
+	//
+	if (HW_IS_GAVIN_READPS2(offset)) {
+		return 0;
 	}
+	//
+	//		Read the head of the MAU FIFO Queue
+	//
+	if (HW_IS_GAVIN_READMAU(offset)) {
+		int qHead = mauQueue;
+		mauQueue = 0;
+		return qHead;
+	}
+	//
+	//		Default
+	//
 	return memory[offset];
 }
 
@@ -45,12 +56,14 @@ int GAVIN_Read(int offset,BYTE8 *memory) {
 //
 // *******************************************************************************************************************************
 
-int GAVIN_Write(int offset,BYTE8 *memory,int value) {
-	//printf("GAVIN:Writing offset %04x %02x\n",offset,value);
-	if (offset >= 0x100 && offset < 0x106) { 				// And write interrupt control registers
-		icr[offset-0x100] &= value;
-	}
-	if (offset == 0x2060 || offset == 0x2064) { 			// PS/2 always return 0.
+int Gavin_Write(int offset,BYTE8 *memory,int value,int size) {
+//	printf("GAVIN:Writing memory %04x value %02x %d\n",offset,value,size);
+//	printf("Gaving Address %x\n",memory);
+	//
+	//		Writing to ICR ands the bits with the value. 
+	//
+	if (HW_IS_GAVIN_INTERRUPTCTRL(offset)) {
+		icr[offset - 0x100] &= value;
 		return 1;
 	}
 	return 0;

@@ -61,21 +61,33 @@ unsigned int  m68k_read_memory_8(unsigned int address){
 		return flashMemory[address & 0x3FFFF];
 	}
 	if (ISHWADDR(address)) {
-		if (IS_GAVIN(address)) {
-			return GAVIN_Read(address & 0x1FFFF,hwMemory+(address & 0xE0000));
-		}
-		return hwMemory[address & 0xFFFFF];
+		#include "generated/hw_gavin_read_byte.h"
+		#include "generated/hw_beatrix_read_byte.h"
+		#include "generated/hw_vicky3a_read_byte.h"
+		#include "generated/hw_vicky3b_read_byte.h"
+		return hwMemory[address-HARDWARE_START];
 	}
 	return 0x00;
 }
 
 unsigned int  m68k_read_memory_16(unsigned int address){
+	if (ISHWADDR(address)) {
+		#include "generated/hw_gavin_read_word.h"
+		#include "generated/hw_beatrix_read_word.h"
+		#include "generated/hw_vicky3a_read_word.h"
+		#include "generated/hw_vicky3b_read_word.h"
+	}
 	return m68k_read_memory_8(address+1) + (m68k_read_memory_8(address) << 8);
 }
 
 unsigned int  m68k_read_memory_32(unsigned int address){
+	if (ISHWADDR(address)) {
+		#include "generated/hw_gavin_read_long.h"
+		#include "generated/hw_beatrix_read_long.h"
+		#include "generated/hw_vicky3a_read_long.h"
+		#include "generated/hw_vicky3b_read_long.h"
+	}
 	unsigned int r = m68k_read_memory_16(address+2) + (m68k_read_memory_16(address) << 16);
-	//if (address == 0xFEC00040 && r != 0) printf("%x\n",r);
 	return r;
 }
 
@@ -89,22 +101,32 @@ void m68k_write_memory_8(unsigned int address, unsigned int value){
 		return;
 	}
 	if (ISHWADDR(address)) {
-		int hasWritten = 0;
-		if (IS_GAVIN(address)) 
-			hasWritten |= GAVIN_Write(address & 0x1FFFF,hwMemory+(address & 0xE0000),value);
-
-		if (hasWritten == 0) {
-			hwMemory[address & 0xFFFFF] = value;	
-		}
+		#include "generated/hw_gavin_write_byte.h"
+		#include "generated/hw_beatrix_write_byte.h"
+		#include "generated/hw_vicky3a_write_byte.h"
+		#include "generated/hw_vicky3b_write_byte.h"
+		hwMemory[address-HARDWARE_START] = value;
 	}
 }
 
 void m68k_write_memory_16(unsigned int address, unsigned int value){
+	if (ISHWADDR(address)) {
+		#include "generated/hw_gavin_write_word.h"
+		#include "generated/hw_beatrix_write_word.h"
+		#include "generated/hw_vicky3a_write_word.h"
+		#include "generated/hw_vicky3b_write_word.h"
+	}
 	m68k_write_memory_8(address+1,value & 0xFF);
 	m68k_write_memory_8(address,value >> 8);
 }
 
 void m68k_write_memory_32(unsigned int address, unsigned int value){
+	if (ISHWADDR(address)) {
+		#include "generated/hw_gavin_write_long.h"
+		#include "generated/hw_beatrix_write_long.h"
+		#include "generated/hw_vicky3a_write_long.h"
+		#include "generated/hw_vicky3b_write_long.h"
+	}
 	m68k_write_memory_16(address+2,value & 0xFFFF);
 	m68k_write_memory_16(address,value >> 16);
 }
