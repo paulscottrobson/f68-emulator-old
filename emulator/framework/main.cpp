@@ -17,9 +17,9 @@
 
 int main(int argc,char *argv[]) {
 	DEBUG_RESET();
-	DEBUG_ARGUMENTS(argc,argv);
+	int runNow = DEBUG_ARGUMENTS(argc,argv);
 	GFXOpenWindow(WIN_TITLE,WIN_WIDTH,WIN_HEIGHT,WIN_BACKCOLOUR);
-	GFXStart(argc == 3);
+	GFXStart(runNow);
 	MEMEndRun();
 	GFXCloseWindow();
 	return(0);

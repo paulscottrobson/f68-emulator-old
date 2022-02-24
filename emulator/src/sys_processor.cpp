@@ -23,18 +23,31 @@
 // *******************************************************************************************************************************
 
 static int cycles;																	// Cycle Count.
+static int resetJumpAddress = 0; 													// Override reset address.
 
 // *******************************************************************************************************************************
 //														Reset the CPU
 // *******************************************************************************************************************************
 
 void CPUReset(void) {
-	m68k_init();
-	m68k_set_cpu_type(PROCESSOR_TYPE);		 										// Select CPU type.
-	m68k_pulse_reset();																// Reset
-	m68k_set_reg(M68K_REG_PC,m68k_read_memory_32(0xFFC00004));
-	HWReset();																		// Reset Hardware
-	cycles = CYCLES_PER_FRAME;
+	if (resetJumpAddress != 0) {
+		m68k_set_reg(M68K_REG_PC,resetJumpAddress);
+	} else {
+		MEMLoadFlashROM();																// Load Flash ROM and copy down.
+		m68k_init();
+		m68k_set_cpu_type(PROCESSOR_TYPE);		 										// Select CPU type.
+		m68k_pulse_reset();																// Reset
+		HWReset();																		// Reset Hardware
+		cycles = CYCLES_PER_FRAME;
+	}
+}
+
+// *******************************************************************************************************************************
+//													Override reset address
+// *******************************************************************************************************************************
+
+void CPUOverrideReset(int addr) {
+	resetJumpAddress = addr;
 }
 
 // *******************************************************************************************************************************

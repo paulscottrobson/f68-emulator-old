@@ -19,3 +19,5 @@
 #include <gfx.h>
 #include <debugger.h>
 #include <sys_debug_system.h>
+#include <cstring>
+#include <ctype.h>

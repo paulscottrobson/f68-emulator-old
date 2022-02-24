@@ -3,7 +3,7 @@
 ;
 		org 	$020000
 start:		
-		lea 	42,a0
+		lea.l 	42,a0
 		moveq 	#1,d0
 gohere:	
 		addq 	#1,d0

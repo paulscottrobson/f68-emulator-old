@@ -23,6 +23,7 @@ BYTE8 CPUExecuteInstruction(void);
 BYTE8 CPUWriteKeyboard(BYTE8 pattern);
 BYTE8 CPUReadMemory(LONG32 address);
 void CPUWriteMemory(LONG32 address,BYTE8 data);
+void CPUOverrideReset(int addr);
 
 void MEMLoadFlashROM(void);
 
@@ -33,9 +34,12 @@ void MEMLoadFlashROM(void);
 
 BYTE8 CPUExecute(LONG32 breakPoint1,LONG32 breakPoint2);
 LONG32 CPUGetStepOverBreakpoint(void);
+void CPUExit(void);
+
+int SRECHandler(int argc,char *argv[]);
+
 void MEMEndRun(void);
 void MEMLoadBinary(char *fileName);
-void CPUExit(void);
 
 typedef struct _CPUStatus {
 	int a[8],d[8];

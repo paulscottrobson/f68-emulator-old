@@ -182,7 +182,7 @@ void initialize() {
 
     // /* Hide the mouse */
     mouse_set_visible(0);
-
+    
     /* Initialize the text channels */
     text_init();
 
@@ -239,7 +239,7 @@ void initialize() {
     load_splashscreen();
 
     /* Play the SID test bong on the Gideon SID implementation */
-    sid_test_internal();
+    //sid_test_internal();
 
     if (res = pata_install()) {
         log_num(LOG_ERROR, "FAILED: PATA driver installation", res);
@@ -289,12 +289,12 @@ void initialize() {
     }
 
     /* Wait until the target duration has been reached _or_ the user presses a key */
-    while (target_jiffies > sys_time_jiffies()) {
-        short scan_code = sys_kbd_scancode();
-        if (scan_code != 0) {
-            break;
-        }
-    }
+    // while (target_jiffies > sys_time_jiffies()) {
+    //     short scan_code = sys_kbd_scancode();
+    //     if (scan_code != 0) {
+    //         break;
+    //     }
+    // }
 
     /* Go back to text mode */
     // text_init();

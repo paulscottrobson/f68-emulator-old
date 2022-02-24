@@ -1,6 +1,4 @@
 - Finish configuration system basic.
-- Loading in files
-- Running files (F4 set PC ? Auto trigger on something ?)
 - Bitmap display
 - Background colour
 - Finish off keyboard (control/shift keys etc)

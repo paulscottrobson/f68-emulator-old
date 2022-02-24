@@ -7,7 +7,7 @@ endif
 APPNAME = f68$(APPSTEM)
 
 SOURCES = 	framework$(S)main.o framework$(S)gfx.o framework$(S)debugger.o \
-			src$(S)sys_debug_f68.o src$(S)sys_processor.o src$(S)memory.o \
+			src$(S)sys_debug_f68.o src$(S)sys_processor.o src$(S)memory.o src$(S)srecord.o \
 			src$(S)hardware.o src$(S)gavin.o src$(S)rendertext.o \
 			cpu$(S)m68kcpu.o cpu$(S)m68kdasm.o cpu$(S)m68kops.o cpu$(S)softfloat.o
   			
@@ -19,10 +19,15 @@ all: emulator
 #	.$(S)$(APPNAME) 
 
 run: emulator 
-	.$(S)$(APPNAME) 
+	.$(S)$(APPNAME) testasm$(S)test.s68 go
 
 debug: emulator 
-	.$(S)$(APPNAME) 
+	.$(S)$(APPNAME) testasm$(S)test.s68
+
+motorola: emulator 
+	.$(S)$(APPNAME) testasm$(S)test.s68
+intel: emulator 
+	.$(S)$(APPNAME) testasm$(S)test.hex
 	
 emulator: prebuild $(APPNAME)
 
