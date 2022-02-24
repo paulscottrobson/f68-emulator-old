@@ -1,7 +1,7 @@
 //
 //	Automatically generated.
 //
-#define BUILD_TIME ("Thu 24-Feb-2022 15:06")
+#define BUILD_TIME ("Thu 24-Feb-2022 15:55")
 
 #define ADDRESS_MASK (0xFFFFFFFF)
 
@@ -25,3 +25,5 @@
 #define ADDR_VICKY3B	(0xFEC80000)
 #define IS_VICKY3B(a)	(((a) & 0xfffe0000) == 0xfec80000)
 
+#define HW_IS_GAVIN_INTERRUPTCTRL(a)  (((a) >= 0x100) && ((a) < 0x106))
+#define HW_IS_GAVIN_READMAU(a)  ((a) == 0x40)

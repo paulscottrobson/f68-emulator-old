@@ -17,6 +17,7 @@ VICKY3B 		=	FEC80000
 //
 //			Intercepted active Reads or writes
 //
-GAVIN:W:100-105:BYTE 			// Interrupt control registers, anded on write.
+GAVIN:W:100-106:BYTE -> INTERRUPTCTRL	// Interrupt control registers, anded on write.
 
-GAVIN:R:40:LONG 				// Reading MAU pulls data from a FIFO Queue.
+GAVIN:R:40:LONG -> READMAU 				// Reading MAU pulls data from a FIFO Queue.
+
