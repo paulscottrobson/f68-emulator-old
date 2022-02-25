@@ -72,7 +72,16 @@ static void _SRECProcessMotorola(char *line) {
 	int a,count;
 	switch(line[1]) {
 
-		case '3':								// S3 is a data line.
+		case '2':								// S2 is a data line (24 bit)
+			count = _SRecGetHex(line+2,2)-3-1;	// 3 for address, 1 for checksum which I ignore
+			a = _SRecGetHex(line+4,6); 			// Load address
+			for (int i = 0;i < count;i++) {
+				int b = _SRecGetHex(line+10+i*2,2);
+				m68k_write_memory_8(a+i,b); 	// Copy into memory.
+			}
+			break;
+
+		case '3':								// S3 is a data line (32 bit)
 			count = _SRecGetHex(line+2,2)-4-1;	// 4 for address, 1 for checksum which I ignore
 			a = _SRecGetHex(line+4,8); 			// Load address
 			for (int i = 0;i < count;i++) {
@@ -81,8 +90,13 @@ static void _SRECProcessMotorola(char *line) {
 			}
 			break;
 
-		case '7':								// S7 sets the start address
+		case '7':								// S7 sets the start address (32 bit)
 			a = _SRecGetHex(line+4,8);
+			CPUOverrideReset(a);
+			break;
+
+		case '8':								// S8 sets the start address (24 bit)
+			a = _SRecGetHex(line+4,6);
 			CPUOverrideReset(a);
 			break;
 	}
