@@ -1,10 +1,4 @@
-- Interrupts
-	a) renable then
-	b) figure out the interrupt vector to call.
-	c) call that interrupt vector and see what happens.
-	d) rebuild without IRQ & see if it works :)
-	
 - Demo 'C' code 
 - Bitmap display
-- Screen size ? Borders !!
+- Fix Screen size ? Borders !!
 

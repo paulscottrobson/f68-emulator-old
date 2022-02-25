@@ -47,9 +47,11 @@ void CPUReset(void) {
 // *******************************************************************************************************************************
 
 int CPUInterruptHandler(int n) {
+	m68k_set_irq(0);
 	if (n >= 1 && n <= 4) { 															// So, it's the user interrupt.
-		printf("INT %x\n",n);
-		return 64;
+		int v = GAVIN_IdentifyInterrupt(n);												// Figure out which interrupt
+		//printf("INT %d UINTV $%x\n",n,v);
+		return v;
 	}
 	return M68K_INT_ACK_AUTOVECTOR; 													// Otherwise a Vicky 3 interrupt.
 }
@@ -85,12 +87,11 @@ BYTE8 CPUExecuteInstruction(void) {
 	if (PC == 0xFFFFFFFF) CPUExit();
 	#endif
 	cycles -= m68k_execute(-99);
-	m68k_set_irq(0);
 	if (cycles >= 0 ) return 0;														// Not completed a frame.
 	cycles = cycles + CYCLES_PER_FRAME;												// Adjust this frame rate, up to x16 on HS
 	HWSync();																		// Update any hardware
-	m68k_set_irq(IRQ_VICKY_A); 																// Interrupt level 5 (Vicky A)
 	GAVIN_FlagInterrupt(1,1); 								 						// Bit 0 of ICR 1 (Vicky A)
+	m68k_set_irq(IRQ_VICKY_A); 															// Interrupt level 5 (Vicky A)
 	GAVIN_UpdateTimers(CYCLES_PER_FRAME,1); 										// Update the timers.
 	return FRAME_RATE;																// Return frame rate.	
 }

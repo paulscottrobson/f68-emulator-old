@@ -253,13 +253,13 @@ short kbdmo_init() {
     /* Clear out any pending interrupt */
     int_clear(INT_KBD_A2560K);
 
-#ifndef KBD_POLLED
+//#ifndef KBD_POLLED
     /* Register a handler for the keyboard */
     int_register(INT_KBD_A2560K, kbdmo_handle_irq);
 
     /* Enable the interrupt for the keyboard */
     int_enable(INT_KBD_A2560K);
-#endif
+//#endif
 
     return 0;
 }

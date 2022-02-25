@@ -137,3 +137,27 @@ void GAVIN_UpdateTimers(int cycles,int frames) {
 	timers[2] += frames;
 	timers[3] += frames;
 }
+
+// *******************************************************************************************************************************
+//
+//											Use Gavin Registers to Identify Interrupt.
+//
+// *******************************************************************************************************************************
+
+int GAVIN_IdentifyInterrupt(int irq) {
+	int n = 3-((irq-1) ^ 1)+2; 										// Register to check.
+	if (n == 0) { 													// A bit should be set.
+		fprintf(stderr,"Warning : IRQ %d register %d not set\n",irq,n);
+		return M68K_INT_ACK_AUTOVECTOR;								// effectively ignore it.
+	}
+	//printf("ICR %d = %x\n",n,icr[n]);
+	int base = (4-irq) * 8; 										// User IRQ vector.
+	int bCheck = icr[n];
+	while ((bCheck & 1) == 0) {
+		bCheck >>=1; 												// FInd first set bit.
+		base++;
+	}
+	int v = base + 64;
+	//printf("User Interrupt %d at vector %d\n",base+64,v);
+	return v;
+}

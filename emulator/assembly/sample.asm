@@ -26,7 +26,7 @@ start:          									; start tells us where to run from, because of -exec=st
                 ;		do it 32 times from the screen top.
                 ;
                 lea.l 	$FEC60000,a0 				; screen text memory here
-                move.b 	#32,d0 						; do it 32 times.
+                move.w 	#32,d0 						; do it 32 times.
 repeatmessage:  lea.l 	greet,a1 					; message here
 copymessage:
 				move.b 	(a1)+,(a0)+ 				; copy byte over.

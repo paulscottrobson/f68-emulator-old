@@ -37,10 +37,11 @@ void  HWScanCodeHandler(int scancode,int keydown) {
 	while (mau_table[n] != -1 && mau_table[n] != scancode) {
 		n++;
 	}
-	if (mau_table[n] == scancode && mau_table[n] != 0 && mau_table[n] != 0x80) {
+	if (mau_table[n] == scancode && mau_table[n] != 0 && mau_table[n] != 0x80) {		
 		int mau = n | (keydown ? 0x00:0x80);
+		//printf("Keyboard %x\n",mau);
 		GAVIN_InsertMauFIFO(mau);
-		//m68k_set_irq(IRQ_GAVIN_SUPERIO); 												// Interrupt level 5 (Vicky A)
-		//GAVIN_FlagInterrupt(3,2); 								 						// Bit 0 of ICR 1 (Vicky A)		
+		GAVIN_FlagInterrupt(3,2); 								 						// Bit 0 of ICR 1 (Gavin SuperIO)		
+		m68k_set_irq(IRQ_GAVIN_SUPERIO); 												// Interrupt level 4 (Gavin SuperIO)
 	}
 }
