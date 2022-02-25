@@ -31,7 +31,7 @@ void GAVIN_UpdateTimers(int cycles,int frames);
 int GAVIN_IdentifyInterrupt(int irq);
 
 void MEMRenderDisplay(void);
-void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,int width,int height);
+void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,SDL_Rect *rDraw);
 
 void  HWScanCodeHandler(int scancode,int keydown);
 

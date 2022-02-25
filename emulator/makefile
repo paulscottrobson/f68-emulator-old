@@ -48,4 +48,5 @@ clean:
 $(APPNAME): $(SOURCES) 
 	$(CC) $(SOURCES) $(LDFLAGS) $(SDL_LDFLAGS) -o $@
 	
-
+rom:
+	cd ..$(S)FoenixMCP-a2560k$(S)src && sh build.sh

@@ -1,19 +1,27 @@
 # f68-emulator
 A2560K Emulator
 
+Note this is *still* in alpha, though it's not far off going into Beta.
+
+Building it
+===========
 Standard make requires SDL2 only. 
 
-(Python 3 is technically required to build, but you can comment make -C setup from the makefile and it will work, albeit with the 
-wrong timestamp)
+Python 3 is technically required to build, but you can comment make -C setup from the makefile and it will work, albeit with the 
+wrong timestamp. Python is only used to process the configuration file.
 
 Builds on Windows with mingw32, SDL2 64 bit installed in c:\sdl2 and needs SDL2.dll and libwinpthread-1.dll - I will try to keep this
 up to date - ish as I can build it on Virtual box. Seems to run okay. 
 
 When building a pull do a make clean first so old .o files from another OS don't get in the way, then build with MAKE -B
 
-This is running a slightly modified version of the A2560K boot rom which has removed the bong and the splash screen.
+I'm working on the bitmap at present so the delay is longer at the start, pressing a key after a couple of seconds clears the bitmap 
+(which you can't see yet !)
 
-In the emulator directory either 
+Running it
+==========
+
+In the emulator directory either: 
 
 ./f68 <files>					(debug)
 or

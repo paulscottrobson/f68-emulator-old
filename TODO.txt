@@ -1,4 +1,4 @@
 - Demo 'C' code 
 - Bitmap display
-- Fix Screen size ? Borders !!
+- Video Mode flag issues ??
 

@@ -46,8 +46,12 @@ void MEMEndRun(void) {
 // *******************************************************************************************************************************
 
 void MEMRenderDisplay(void) {
+	SDL_Rect rc; 
+	rc.w = WIN_WIDTH;rc.h = WIN_HEIGHT;
+	rc.x = WIN_WIDTH/2 - rc.w/2;rc.y = WIN_HEIGHT/2-rc.h/2;
+	 													// Draw text screen.
 	HWRenderTextScreen(hwMemory+0x40000,hwMemory+0x60000,hwMemory+0x68000,
-							hwMemory+0x6C400,hwMemory+0x48000,WIN_WIDTH,WIN_HEIGHT);
+							hwMemory+0x6C400,hwMemory+0x48000,&rc);
 }
 
 // *******************************************************************************************************************************

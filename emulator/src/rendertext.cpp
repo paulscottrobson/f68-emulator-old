@@ -31,15 +31,27 @@ int HWConvertVickyLUT(BYTE8 *lut) {
 
 static int renderCount = 0;
 
-void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,int width,int height) {
-	int pWidth = 768;
-	int pHeight = 568;
-	int scaleX = width/pWidth;
-	int scaleY = height/pHeight;
+void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,SDL_Rect *rDraw) {
+	int pWidth = 800;
+	int pHeight = 600;
+
+	if ((vicky[3] & 0x01) == 0) return; 				// No text mode enabled.
+
+	// if ((vicky[2] & 0x01) ) { 							// Handle double size.
+	// 	pWidth = 1024;
+	// 	pHeight = 768;
+	// }
+
+	int cBWidth = pWidth/8; 							// Byte lines per width pre border
+
+	pWidth = pWidth - (vicky[5] & 0x3F)*2;				// Adjust for border.
+	pHeight = pHeight - (vicky[6] & 0x3F)*2;
+
+	int scaleX = rDraw->w/pWidth;
+	int scaleY = rDraw->h/pHeight;
 
 	int cWidth = pWidth/8; 								// Chars per line
 	int cHeight = pHeight/8; 							// Lines per screen
-	int cBWidth = 100; 									// Byte lines per width
 	int cSize = (scaleX < scaleY) ? scaleX : scaleY;	// Char Size in pixels.
 	if (cSize < 1) cSize = 1;
 
@@ -47,8 +59,9 @@ void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,
 	int colours[32];
 
 	int border = HWConvertVickyLUT(vicky+8);	 		// Convert BGR
+	GFXRectangle(rDraw,border); 						// Draw border
 
-	renderCount++;
+	renderCount++; 										// Convert Vicky ARGB format to our 12 bit format
 	for (int i = 0;i < 32;i++) {
 		colours[i] = HWConvertVickyLUT(lutMem+i*4);
 	}
@@ -58,14 +71,10 @@ void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,
 		xCursor = (vicky[0x16] << 8) + vicky[0x17];
 	}
 
-	SDL_Rect rc,rcp; 
-	rc.w = width;rc.h = height; 						// Erase window space.
-	rc.x = WIN_WIDTH/2 - rc.w/2;rc.y = WIN_HEIGHT/2-rc.h/2;
-	GFXRectangle(&rc,border);
+	int xOrg = rDraw->x+rDraw->w/2-cWidth*8*cSize/2; 	// Work out character origin.
+	int yOrg = rDraw->y+rDraw->h/2-cHeight*8*cSize/2;
 
-	int xOrg = WIN_WIDTH/2-cWidth*8*cSize/2; 			// Work out character origin.
-	int yOrg = WIN_HEIGHT/2-cHeight*8*cSize/2;
-
+	SDL_Rect rc,rcp;
 	rc.x = xOrg;rc.y = yOrg; 							// Erase the screen background space to black default
 	rc.w = cWidth * 8 * cSize;rc.h = cHeight * 8 * cSize;
 	GFXRectangle(&rc,0x000);

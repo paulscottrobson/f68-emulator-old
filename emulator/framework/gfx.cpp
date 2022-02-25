@@ -9,16 +9,7 @@
 // *******************************************************************************************************************************
 // *******************************************************************************************************************************
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory.h>
-#include <sys_processor.h>
-#include <hardware.h>
-#include <ctype.h>
-#include "gfx.h"
-#include <queue>
-#include <cmath>
-
+#include <includes.h>
 
 static SDL_Window *mainWindow = NULL;
 static SDL_Surface *mainSurface = NULL;
