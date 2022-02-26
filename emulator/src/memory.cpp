@@ -85,6 +85,9 @@ unsigned int  m68k_read_memory_8(unsigned int address){
 }
 
 unsigned int  m68k_read_memory_16(unsigned int address){
+
+	address &= ADDRESS_MASK;
+
 	if (ISHWADDR(address)) {
 		#include "generated/hw_gavin_read_word.h"
 		#include "generated/hw_beatrix_read_word.h"
@@ -95,6 +98,9 @@ unsigned int  m68k_read_memory_16(unsigned int address){
 }
 
 unsigned int  m68k_read_memory_32(unsigned int address){
+
+	address &= ADDRESS_MASK;
+
 	if (ISHWADDR(address)) {
 		#include "generated/hw_gavin_read_long.h"
 		#include "generated/hw_beatrix_read_long.h"
@@ -132,6 +138,9 @@ void m68k_write_memory_8(unsigned int address, unsigned int value){
 }
 
 void m68k_write_memory_16(unsigned int address, unsigned int value){
+
+	address &= ADDRESS_MASK;
+
 	if (ISHWADDR(address)) {
 		#include "generated/hw_gavin_write_word.h"
 		#include "generated/hw_beatrix_write_word.h"
@@ -143,6 +152,9 @@ void m68k_write_memory_16(unsigned int address, unsigned int value){
 }
 
 void m68k_write_memory_32(unsigned int address, unsigned int value){
+
+	address &= ADDRESS_MASK;
+
 	if (ISHWADDR(address)) {
 		#include "generated/hw_gavin_write_long.h"
 		#include "generated/hw_beatrix_write_long.h"

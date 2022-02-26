@@ -28,6 +28,13 @@ asample: emulator
 	make -C assembly
 	.$(S)$(APPNAME) assembly$(S)sample.s68 go
 
+csample: emulator
+	make -C c
+	.$(S)$(APPNAME) c$(S)hello.s28 go
+
+text: emulator
+	.$(S)$(APPNAME) text.s28 go
+
 emulator: prebuild $(APPNAME)
 
 prebuild:
