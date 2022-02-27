@@ -32,8 +32,9 @@ csample: emulator
 	make -C c
 	.$(S)$(APPNAME) c$(S)hello.s28 go
 
-text: emulator
-	.$(S)$(APPNAME) text.s28 go
+text:emulator
+	make -C text
+	.$(S)$(APPNAME) text$(S)text.s28 go
 
 emulator: prebuild $(APPNAME)
 

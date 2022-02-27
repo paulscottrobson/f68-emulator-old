@@ -63,7 +63,7 @@ unsigned int  m68k_read_memory_8(unsigned int address){
 
 	address &= ADDRESS_MASK;
 
-	if (address < 0x40000) {
+	if (address < 0x400000) {
 		return ramMemory[address];
 	}
 
@@ -120,7 +120,7 @@ void m68k_write_memory_8(unsigned int address, unsigned int value){
 
 	address &= ADDRESS_MASK;
 
-	if (address < 0x40000) {
+	if (address < 0x400000) {
 		ramMemory[address] = value & 0xFF;
 		return;
 	}
