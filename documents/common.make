@@ -39,3 +39,10 @@ mkfile_dir := $(dir $(mkfile_path))
 #
 ROOTDIR = $(mkfile_dir)..$(S)
 
+ifeq ($(OS),Windows_NT)
+#VBCC=$(ROOTDIR)$(S)rom$(S)FoenixMCP-a2560k$(S)vbcc
+#PATH+=:$(VBCC)$(S)bin
+else
+export VBCC=$(ROOTDIR)$(S)rom$(S)FoenixMCP-a2560k$(S)vbcc
+export PATH+=:$(VBCC)$(S)bin
+endif

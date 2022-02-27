@@ -11,11 +11,11 @@ SOURCE=FoenixMCP-a2560k$(S)src$(S)
 all:rom
 
 rom	:
-	make -C $(SOURCE) UNIT=a2560k MEMORY=flash #FASTER_BOOT=1 
+	make -C $(SOURCE) UNIT=a2560k MEMORY=flash 
 	$(CCOPY) $(SOURCE)foenixmcp.s68 ..$(S)emulator$(S)a2560k.rom
 
 clean:
-	make -C $(SOURCE) FASTER_BOOT=1 UNIT=a2560k MEMORY=flash clean
+	make -C $(SOURCE) clean
 
 #
 # 		FoenixMCP-a2560k is a clone of the repository, however the 

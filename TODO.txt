@@ -2,5 +2,6 @@
 - Constants used in rendering need to come out.
 - Video Mode flag issues ??
 - Add Mouse
-- Size generalise (e.g. draw offscreen and blit) - I think I do that anyway !!
+- Size generalise (e.g. draw offscreen and blit) - I think I do that anyway so specify area to blit ?
 - Generalise, and add Second bitmap.
+- Can't build ROM or C.
