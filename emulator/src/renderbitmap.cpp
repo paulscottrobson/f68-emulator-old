@@ -43,10 +43,10 @@ void HWRenderBitmap(BYTE8 *vicky,BYTE8 *videoMem,SDL_Rect *rDraw) {
 
 	int cSize = (scaleX < scaleY) ? scaleX : scaleY;	// Char Size in pixels.
 
-	int xOrg = rDraw->x+rDraw->w/2-pWidth*cSize/2;		 	// Work out character origin.
+	int xOrg = rDraw->x+rDraw->w/2-pWidth*cSize/2;		// Work out character origin.
 	int yOrg = rDraw->y+rDraw->h/2-pHeight*cSize/2;
 
-	int backCol = HWConvertVickyLUT(vicky+12);	 		// Convert BGR background colour
+	int backCol = HWConvertVickyTextLUT(vicky+12);		// Convert BGR background colour
 	GFXRectangle(rDraw,backCol); 						// Draw background
 
 	SDL_Rect rc;
@@ -63,7 +63,7 @@ void HWRenderBitmap(BYTE8 *vicky,BYTE8 *videoMem,SDL_Rect *rDraw) {
 			int col = *pixData++;
 				if (col != 0) {
 				if (convLuts[col] < 0) {
-					convLuts[col] = HWConvertVickyLUT(vicky+0x2000+baseLut+col*4);
+					convLuts[col] = HWConvertVickyBitmapLUT(vicky+0x2000+baseLut+col*4);
 				}
 				GFXRectangle(&rc,convLuts[col]);
 				rc.x += rc.w;

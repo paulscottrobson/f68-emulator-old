@@ -6,6 +6,7 @@
 #
 #	NB: Windows SDL2 is hard coded.
 #
+.ONESHELL:
 ifeq ($(OS),Windows_NT)
 CCOPY = copy
 CMAKE = make
@@ -38,11 +39,12 @@ mkfile_dir := $(dir $(mkfile_path))
 #		Root directory
 #
 ROOTDIR = $(mkfile_dir)..$(S)
-
+#
+# 		Set up to compile VBCC
+#
 ifeq ($(OS),Windows_NT)
-#VBCC=$(ROOTDIR)$(S)rom$(S)FoenixMCP-a2560k$(S)vbcc
-#PATH+=:$(VBCC)$(S)bin
+# God alone knows.
 else
-export VBCC=$(ROOTDIR)$(S)rom$(S)FoenixMCP-a2560k$(S)vbcc
+export VBCC=$(ROOTDIR)$(S)vbcc
 export PATH+=:$(VBCC)$(S)bin
 endif

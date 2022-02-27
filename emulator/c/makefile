@@ -5,7 +5,6 @@ include ../../documents/common.make
 endif
 
 
-
 all:
 	vc +$(VBCC)/config/a2560-s28 -o hello.s28 hello.c
 

@@ -4,8 +4,6 @@ else
 include ../documents/common.make
 endif
 
-export VBCC=$(ROOTDIR)$(S)rom$(S)FoenixMCP-a2560k$(S)vbcc
-export PATH+=:$(VBCC)$(S)bin
 SOURCE=FoenixMCP-a2560k$(S)src$(S)
 
 all:rom

@@ -15,7 +15,7 @@
 //											Convert a Vicky LUT to our RGB format
 // *******************************************************************************************************************************
 
-int HWConvertVickyLUT(BYTE8 *lut) {
+int HWConvertVickyTextLUT(BYTE8 *lut) {
 	int parts[4];
 	for (int i = 0;i < 4;i++) {
 		parts[i] = (lut[i]) >> 4;
@@ -23,6 +23,16 @@ int HWConvertVickyLUT(BYTE8 *lut) {
 		if (parts[i] > 15) parts[i] = 15;
 	}
 	return parts[3]+(parts[2] << 4)+(parts[1] << 8);		// ARGB Bigendian
+}
+
+int HWConvertVickyBitmapLUT(BYTE8 *lut) {
+	int parts[4];
+	for (int i = 0;i < 4;i++) {
+		parts[i] = (lut[i]) >> 4;
+		if (parts[i] < 0) parts[i] = 0;
+		if (parts[i] > 15) parts[i] = 15;
+	}
+	return parts[0]+(parts[1] << 4)+(parts[2] << 8);		// ARGB Bigendian
 }
 
 // *******************************************************************************************************************************
@@ -58,12 +68,12 @@ void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,
 	int xCursor = -1,yCursor = -1;
 	int colours[32];
 
-	int border = HWConvertVickyLUT(vicky+8);	 		// Convert BGR
+	int border = HWConvertVickyTextLUT(vicky+8);		// Convert BGR
 	GFXRectangle(rDraw,border); 						// Draw border
 
 	renderCount++; 										// Convert Vicky ARGB format to our 12 bit format
 	for (int i = 0;i < 32;i++) {
-		colours[i] = HWConvertVickyLUT(lutMem+i*4);
+		colours[i] = HWConvertVickyTextLUT(lutMem+i*4);
 	}
 
 	if (vicky[0x13] & 1) { 								// Cursor on.
