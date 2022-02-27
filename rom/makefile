@@ -11,7 +11,7 @@ SOURCE=FoenixMCP-a2560k$(S)src$(S)
 all:rom
 
 rom	:
-	make -C $(SOURCE) FASTER_BOOT=1 UNIT=a2560k MEMORY=flash
+	make -C $(SOURCE) UNIT=a2560k MEMORY=flash #FASTER_BOOT=1 
 	$(CCOPY) $(SOURCE)foenixmcp.s68 ..$(S)emulator$(S)a2560k.rom
 
 clean:

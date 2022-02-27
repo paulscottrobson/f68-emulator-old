@@ -235,8 +235,6 @@ void initialize() {
     int_enable_all();
     log(LOG_TRACE, "Interrupts enabled");
 
-#ifndef FASTER_BOOT
-
     // /* Display the splash screen */
     load_splashscreen();
 
@@ -271,8 +269,6 @@ void initialize() {
         log(LOG_INFO, "PS/2 keyboard initialized.");
     }
 
-#endif
-
 #if MODEL == MODEL_FOENIX_A2560K
     if (res = kbdmo_init()) {
         log_num(LOG_ERROR, "FAILED: A2560K built-in keyboard initialization", res);
@@ -294,7 +290,6 @@ void initialize() {
     }
 
 
-#ifndef FASTER_BOOT
     /* Wait until the target duration has been reached _or_ the user presses a key */
     while (target_jiffies > sys_time_jiffies()) {
         short scan_code = sys_kbd_scancode();
@@ -302,7 +297,6 @@ void initialize() {
             break;
         }
     }
-#endif
     /* Go back to text mode */
     // text_init();
 }

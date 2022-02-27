@@ -117,6 +117,10 @@ unsigned int  m68k_read_memory_32(unsigned int address){
 
 void m68k_write_memory_8(unsigned int address, unsigned int value){
 
+		if (address == 0x800000) {
+			printf("Written %x at PC:%x\n",value,CPUGetStatus()->pc);
+		}
+
 	address &= ADDRESS_MASK;
 
 	if (address < 0x40000) {
@@ -154,6 +158,7 @@ void m68k_write_memory_16(unsigned int address, unsigned int value){
 void m68k_write_memory_32(unsigned int address, unsigned int value){
 
 	address &= ADDRESS_MASK;
+
 
 	if (ISHWADDR(address)) {
 		#include "generated/hw_gavin_write_long.h"
