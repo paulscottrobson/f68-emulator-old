@@ -1,3 +1,6 @@
 - Better Demo 'C' code make xplatform
-- Bitmap display
+- Constants used in rendering need to come out.
 - Video Mode flag issues ??
+- Add Mouse
+- Size generalise (e.g. draw offscreen and blit) - I think I do that anyway !!
+- Generalise, and add Second bitmap.

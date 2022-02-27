@@ -18,9 +18,9 @@ clean:
 	make -C $(SOURCE) FASTER_BOOT=1 UNIT=a2560k MEMORY=flash clean
 
 #
-# 		FoenixMCP-a2560k is a clone of the repository, with 
-#		#ifndef/#endif around the load-splashscreen -> PS/2 init
-#		code and the delay at the end. Just to speed the wait up a bit.
+# 		FoenixMCP-a2560k is a clone of the repository, however the 
+#		text_init() at 301 of foenixmcp.c has been uncommented so that
+# 		it switches back to text mode at the end.
 #
 #		The vbcc directory in there has had the compiler expanded over it
 # 		and the vbcc folder *ONLY* from Foenix_vbcc_target_main.zip expanded

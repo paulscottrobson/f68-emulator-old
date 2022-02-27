@@ -52,7 +52,7 @@ void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,
 
 	int cWidth = pWidth/8; 								// Chars per line
 	int cHeight = pHeight/8; 							// Lines per screen
-	int cSize = (scaleX < scaleY) ? scaleX : scaleY;	// Char Size in pixels.
+	int cSize = (scaleX < scaleY) ? scaleX : scaleY;	// Char Dot Size in pixels.
 	if (cSize < 1) cSize = 1;
 
 	int xCursor = -1,yCursor = -1;

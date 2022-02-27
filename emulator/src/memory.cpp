@@ -52,6 +52,7 @@ void MEMRenderDisplay(void) {
 	 													// Draw text screen.
 	HWRenderTextScreen(hwMemory+0x40000,hwMemory+0x60000,hwMemory+0x68000,
 							hwMemory+0x6C400,hwMemory+0x48000,&rc);
+	HWRenderBitmap(hwMemory+0x80000,videoMemory,&rc);
 }
 
 // *******************************************************************************************************************************
@@ -117,10 +118,6 @@ unsigned int  m68k_read_memory_32(unsigned int address){
 
 void m68k_write_memory_8(unsigned int address, unsigned int value){
 
-		if (address == 0x800000) {
-			printf("Written %x at PC:%x\n",value,CPUGetStatus()->pc);
-		}
-
 	address &= ADDRESS_MASK;
 
 	if (address < 0x40000) {
@@ -156,6 +153,10 @@ void m68k_write_memory_16(unsigned int address, unsigned int value){
 }
 
 void m68k_write_memory_32(unsigned int address, unsigned int value){
+
+		// if ((address & 0xFFFFFFFC) == 0xFEC80000) {
+		// 	printf("Written %x:%x at PC:%x\n",address,value,CPUGetStatus()->pc);
+		// }
 
 	address &= ADDRESS_MASK;
 
