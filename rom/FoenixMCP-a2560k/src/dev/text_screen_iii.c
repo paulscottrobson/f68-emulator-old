@@ -211,7 +211,6 @@ int text_init() {
         text_set_border(0, 1, 0x20, 0x10, border_color);
     }
 
-
 #if MODEL == MODEL_FOENIX_A2560K
 
     *chan_b = *chan_a;

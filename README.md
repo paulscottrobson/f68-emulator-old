@@ -61,3 +61,13 @@ Samples
 asample is an assembler sample based on the original by P.Weingar. It shows copying to the screen and using the O/S
 
 make asample should run it, when it boots press F1 to start.
+
+make csample should run a similar C program.
+
+Logging
+=======
+The emulator has its own seperate logger, which operates by writing an ASCII string to address 0xFFFFFFFFC (normally Flash ROM)
+
+e.g. the following code will print Hello, world and the current PC value. 
+
+    *((long *)-4) = (long)"Hello, world";

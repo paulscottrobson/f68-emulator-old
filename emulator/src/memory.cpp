@@ -17,6 +17,20 @@ static BYTE8 videoMemory[0x800000];													// VRAM at $00800000-$00FFFFFF
 static BYTE8 hwMemory[HARDWARE_RAM]; 												// RAM space at FEC00000
 
 // *******************************************************************************************************************************
+//													  Print logged text
+// *******************************************************************************************************************************
+
+static void logPrint(unsigned int textAddr) {
+	char buffer[129];
+	int n = 0;
+	while (m68k_read_memory_8(textAddr) != 0 && n < 128) {
+		buffer[n++] = m68k_read_memory_8(textAddr++);
+	}
+	buffer[n] = '\0';
+	fprintf(stderr,"F68 LOG: %s PC:$%08x\n",buffer,CPUGetStatus()->pc);
+}
+
+// *******************************************************************************************************************************
 //														Load Flash ROM
 // *******************************************************************************************************************************
 
@@ -160,6 +174,10 @@ void m68k_write_memory_16(unsigned int address, unsigned int value){
 void m68k_write_memory_32(unsigned int address, unsigned int value){
 
 	address &= ADDRESS_MASK;
+
+	if (address == 0xFFFFFFFC) {
+		logPrint(value);
+	}
 
 	if (ISHWADDR(address)) {
 		#include "generated/hw_gavin_write_long.h"
