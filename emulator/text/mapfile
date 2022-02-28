@@ -37,11 +37,11 @@ Files:
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (_main.o):  CODE 20050(be), DATA 2d5bc(4), BSS 2d748(4) hex
   syscalls.o:  CODE 20110(650) hex
   io.o:  CODE 20760(17a), DATA 2d5c0(40) hex
-  fileZXi8a6.o:  CODE 208dc(c28), DATA 2d600(4), BSS 2d74c(4b54) hex
+  fileisAXSM.o:  CODE 208dc(c28), DATA 2d600(4), BSS 2d74c(4b54) hex
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (free.o):  CODE 21504(cc) hex
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (malloc.o):  CODE 215d0(fe), DATA 2d604(c), BSS 322a0(1) hex
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (calloc.o):  CODE 216d0(7e) hex
-  fileoOUjO5.o:  CODE 21750(c74), DATA 2d610(14), BSS 322a4(104) hex
+  filebiqLrP.o:  CODE 21750(c74), DATA 2d610(14), BSS 322a4(104) hex
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (sprintf.o):  CODE 223c4(60) hex
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (fputc.o):  CODE 22424(64) hex
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (_putbuf.o):  CODE 22488(15a) hex
@@ -71,9 +71,9 @@ Files:
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (strtol.o):  CODE 23c30(c8) hex
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (strtoul.o):  CODE 23cf8(226) hex
   /Projects/f68-emulator/documents/..//vbcc/targets/a2560-elf/lib/libvc.a (_errno.o):  DATA 2d724(4) hex
-  file8k9zg6.o:  CODE 23f20(336), BSS 323bc(500) hex
-  fileNwb7i5.o:  CODE 24258(2e09) hex
-  filee9N1M2.o:  CODE 27064(6539), DATA 2d728(20), BSS 328bc(400) hex
+  fileChxI9M.o:  CODE 23f20(336), BSS 323bc(500) hex
+  filexn7KiO.o:  CODE 24258(2e09) hex
+  fileKFhN0M.o:  CODE 27064(6539), DATA 2d728(20), BSS 328bc(400) hex
   INITEXIT:  .dtors 2d59d(10), .ctors 2d5ad(c) hex
 
 
@@ -84,11 +84,11 @@ Section mapping (numbers in hex):
            00020050 - 0002010e _main.o(CODE)
            00020110 - 00020760 syscalls.o(CODE)
            00020760 - 000208da io.o(CODE)
-           000208dc - 00021504 fileZXi8a6.o(CODE)
+           000208dc - 00021504 fileisAXSM.o(CODE)
            00021504 - 000215d0 free.o(CODE)
            000215d0 - 000216ce malloc.o(CODE)
            000216d0 - 0002174e calloc.o(CODE)
-           00021750 - 000223c4 fileoOUjO5.o(CODE)
+           00021750 - 000223c4 filebiqLrP.o(CODE)
            000223c4 - 00022424 sprintf.o(CODE)
            00022424 - 00022488 fputc.o(CODE)
            00022488 - 000225e2 _putbuf.o(CODE)
@@ -115,9 +115,9 @@ Section mapping (numbers in hex):
            00023c04 - 00023c30 strchr.o(CODE)
            00023c30 - 00023cf8 strtol.o(CODE)
            00023cf8 - 00023f1e strtoul.o(CODE)
-           00023f20 - 00024256 file8k9zg6.o(CODE)
-           00024258 - 00027061 fileNwb7i5.o(CODE)
-           00027064 - 0002d59d filee9N1M2.o(CODE)
+           00023f20 - 00024256 fileChxI9M.o(CODE)
+           00024258 - 00027061 filexn7KiO.o(CODE)
+           00027064 - 0002d59d fileKFhN0M.o(CODE)
 ------------------------------
   0002d59d .dtors  (size 10, allocated c)
            0002d59d - 0002d5ad INITEXIT(.dtors)
@@ -128,22 +128,22 @@ Section mapping (numbers in hex):
   0002d5bc data  (size 18c, allocated 16c)
            0002d5bc - 0002d5c0 _main.o(DATA)
            0002d5c0 - 0002d600 io.o(DATA)
-           0002d600 - 0002d604 fileZXi8a6.o(DATA)
+           0002d600 - 0002d604 fileisAXSM.o(DATA)
            0002d604 - 0002d610 malloc.o(DATA)
-           0002d610 - 0002d624 fileoOUjO5.o(DATA)
+           0002d610 - 0002d624 filebiqLrP.o(DATA)
            0002d624 - 0002d724 _clz_tab.o(DATA)
            0002d724 - 0002d728 _errno.o(DATA)
-           0002d728 - 0002d748 filee9N1M2.o(DATA)
+           0002d728 - 0002d748 fileKFhN0M.o(DATA)
 ------------------------------
   0002d748 bss  (size 5574, allocated 0)
            0002d748 - 0002d74c _main.o(BSS)
-           0002d74c - 000322a0 fileZXi8a6.o(BSS)
+           0002d74c - 000322a0 fileisAXSM.o(BSS)
            000322a0 - 000322a1 malloc.o(BSS)
-           000322a4 - 000323a8 fileoOUjO5.o(BSS)
+           000322a4 - 000323a8 filebiqLrP.o(BSS)
            000323a8 - 000323b0 _firstfile.o(BSS)
            000323b0 - 000323bc _stdio.o(BSS)
-           000323bc - 000328bc file8k9zg6.o(BSS)
-           000328bc - 00032cbc filee9N1M2.o(BSS)
+           000323bc - 000328bc fileChxI9M.o(BSS)
+           000328bc - 00032cbc fileKFhN0M.o(BSS)
 
 
 Symbols of text:

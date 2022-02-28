@@ -25,7 +25,7 @@ start:          									; start tells us where to run from, because of -exec=st
                 ;		Write Hello world by writing straight to text memory
                 ;		do it 32 times from the screen top.
                 ;
-                lea.l 	$FEC60000,a0 				; screen text memory here
+                lea.l 	$FECA0000,a0 				; screen text memory here
                 move.w 	#32,d0 						; do it 32 times.
 repeatmessage:  lea.l 	greet,a1 					; message here
 copymessage:
