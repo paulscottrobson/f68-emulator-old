@@ -1,5 +1,5 @@
-# f68-emulator
-A2560K Emulator (Now moved to a2560-dev/f68-emulator)
+# f68-emulator  (Now moved to a2560-dev/f68-emulator)
+A2560K Emulator
 
 Note this is *still* in alpha, though it's not far off going into Beta.
 
