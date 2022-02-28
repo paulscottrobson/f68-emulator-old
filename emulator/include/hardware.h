@@ -31,7 +31,7 @@ void GAVIN_UpdateTimers(int cycles,int frames);
 int GAVIN_IdentifyInterrupt(int irq);
 
 void MEMRenderDisplay(void);
-void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,SDL_Rect *rDraw);
+void HWRenderTextScreen(char vType,BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,SDL_Rect *rDraw);
 void HWRenderBitmap(BYTE8 *vicky,BYTE8 *videoMem,SDL_Rect *rDraw);
 int HWConvertVickyTextLUT(BYTE8 *lut);
 int HWConvertVickyBitmapLUT(BYTE8 *lut);

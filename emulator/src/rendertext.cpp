@@ -41,17 +41,25 @@ int HWConvertVickyBitmapLUT(BYTE8 *lut) {
 
 static int renderCount = 0;
 
-void HWRenderTextScreen(BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,SDL_Rect *rDraw) {
-	int pWidth = 800;
-	int pHeight = 600;
+void HWRenderTextScreen(char vType,BYTE8 *vicky,BYTE8 *charMem,BYTE8 *colMem,BYTE8 *lutMem,BYTE8 *fontMem,SDL_Rect *rDraw) {
 
 	if ((vicky[3] & 0x01) == 0) return; 				// No text mode enabled.
 
-	// if ((vicky[2] & 0x01) ) { 							// Handle double size.
-	// 	pWidth = 1024;
-	// 	pHeight = 768;
-	// }
+	int pWidth,pHeight;
 
+	if (vType == 'A') {									// Vicky III A
+		pWidth = 800;
+		pHeight = 600;
+		if (vicky[2] & 0x01) { 				
+			pWidth = 1024;pHeight = 768;
+		}
+	} else { 											// Vicky III B
+		pWidth = 640;
+		pHeight = 480;
+		if (vicky[2] & 1) { 
+			pWidth = 800;pHeight = 600; 
+		}
+	}		
 	int cBWidth = pWidth/8; 							// Byte lines per width pre border
 
 	pWidth = pWidth - (vicky[5] & 0x3F)*2;				// Adjust for border.

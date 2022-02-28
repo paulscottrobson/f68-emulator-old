@@ -20,9 +20,6 @@ clean:
 #		text_init() at 301 of foenixmcp.c has been uncommented so that
 # 		it switches back to text mode at the end.
 #
-#		The vbcc directory in there has had the compiler expanded over it
-# 		and the vbcc folder *ONLY* from Foenix_vbcc_target_main.zip expanded
-# 		over that.
-#
-# 		DON'T COPY THE SRC DIRECTORY WHICH IS SOMETHING ELSE
+#		Additionally, text_init() has been changed so that chan_a is
+#		now set up to access Vicky III *B* (lines 215-248, text_screen_iii.c)
 #

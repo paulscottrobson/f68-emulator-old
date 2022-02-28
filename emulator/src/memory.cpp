@@ -50,9 +50,14 @@ void MEMRenderDisplay(void) {
 	rc.w = WIN_WIDTH;rc.h = WIN_HEIGHT;
 	rc.x = WIN_WIDTH/2 - rc.w/2;rc.y = WIN_HEIGHT/2-rc.h/2;
 	 													// Draw text screen.
-	HWRenderTextScreen(hwMemory+0x40000,hwMemory+0x60000,hwMemory+0x68000,
-							hwMemory+0x6C400,hwMemory+0x48000,&rc);
-	HWRenderBitmap(hwMemory+0x80000,videoMemory,&rc);
+	if (GFXIsKeyPressed(GFXKEY_CONTROL)) {
+		HWRenderTextScreen('A',hwMemory+0x40000,hwMemory+0x60000,hwMemory+0x68000,
+															hwMemory+0x6C400,hwMemory+0x48000,&rc);	
+	} else {
+		HWRenderTextScreen('B',hwMemory+0x80000,hwMemory+0xA0000,hwMemory+0xA8000,
+															hwMemory+0xAC400,hwMemory+0x88000,&rc);
+		HWRenderBitmap(hwMemory+0x80000,videoMemory,&rc);
+	}
 }
 
 // *******************************************************************************************************************************
@@ -153,10 +158,6 @@ void m68k_write_memory_16(unsigned int address, unsigned int value){
 }
 
 void m68k_write_memory_32(unsigned int address, unsigned int value){
-
-		// if ((address & 0xFFFFFFFC) == 0xFEC80000) {
-		// 	printf("Written %x:%x at PC:%x\n",address,value,CPUGetStatus()->pc);
-		// }
 
 	address &= ADDRESS_MASK;
 

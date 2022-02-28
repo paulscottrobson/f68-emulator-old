@@ -289,7 +289,6 @@ void initialize() {
         log(LOG_INFO, "File system initialized.");
     }
 
-
     /* Wait until the target duration has been reached _or_ the user presses a key */
     while (target_jiffies > sys_time_jiffies()) {
         short scan_code = sys_kbd_scancode();
@@ -297,6 +296,7 @@ void initialize() {
             break;
         }
     }
+
     /* Go back to text mode */
     text_init();
 }
